@@ -1,22 +1,13 @@
 import React from 'react';
-
 import {NavigationContainer} from '@react-navigation/native';
-
-import {SafeAreaView, Text, useColorScheme} from 'react-native';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {AuthNavigator, MainNavigator} from '~navigation';
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  const isAuth = false;
 
   return (
     <NavigationContainer>
-      <SafeAreaView style={backgroundStyle}>
-        <Text>Hello world!</Text>
-      </SafeAreaView>
+      {isAuth ? <MainNavigator /> : <AuthNavigator />}
     </NavigationContainer>
   );
 };

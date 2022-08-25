@@ -5,7 +5,7 @@ import {Login} from './Login';
 import {Registration} from './Registration';
 
 export const Authorization = () => {
-  const [activeTab, setActiveTab] = useState('Login');
+  const [activeTab, setActiveTab] = useState('');
 
   return (
     <View>

@@ -1,6 +1,8 @@
 import React from 'react';
-import {SafeAreaView, Text, useColorScheme} from 'react-native';
 
+import {NavigationContainer} from '@react-navigation/native';
+
+import {SafeAreaView, Text, useColorScheme} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 const App = () => {
@@ -11,9 +13,11 @@ const App = () => {
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <Text>Hello world!</Text>
-    </SafeAreaView>
+    <NavigationContainer>
+      <SafeAreaView style={backgroundStyle}>
+        <Text>Hello world!</Text>
+      </SafeAreaView>
+    </NavigationContainer>
   );
 };
 

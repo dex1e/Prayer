@@ -10,7 +10,7 @@ import {COLORS} from '~assets';
 import {Login} from './Login';
 import {Registration} from './Registration';
 
-export const Authorization = () => {
+export const AuthorizationScreen = () => {
   const [activeTab, setActiveTab] = useState('Login');
 
   return (

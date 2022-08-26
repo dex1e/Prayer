@@ -1,6 +1,7 @@
 import React from 'react';
 import {FC} from 'react';
-import {Button, ButtonProps, StyleSheet, View} from 'react-native';
+import {ButtonProps, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {COLORS} from '~assets';
 
 interface ButtonUIProps extends ButtonProps {
   title: string;
@@ -8,14 +9,27 @@ interface ButtonUIProps extends ButtonProps {
 
 export const ButtonUI: FC<ButtonUIProps> = ({title, ...props}) => {
   return (
-    <View style={styles.buttonContainer}>
-      <Button {...props} title={title} />
-    </View>
+    <TouchableOpacity {...props} style={styles.button}>
+      <Text style={styles.text}>{title}</Text>
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  buttonContainer: {
+  button: {
     width: '100%',
+    backgroundColor: COLORS.gold,
+    borderRadius: 15,
+    fontFamily: 'SF UI Text',
+  },
+
+  text: {
+    textAlign: 'center',
+    color: COLORS.white,
+    fontSize: 14,
+    lineHeight: 14,
+    paddingVertical: 8,
+    paddingHorizontal: 23,
+    textTransform: 'uppercase',
   },
 });

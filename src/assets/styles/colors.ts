@@ -5,4 +5,6 @@ export const COLORS = {
   black: '#514D47',
   lightBlue: '#72A8BC',
   red: '#FF0000',
+  gold: '#BFB393',
+  white: '#FFF',
 };

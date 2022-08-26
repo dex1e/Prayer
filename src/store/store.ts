@@ -1,7 +1,7 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import authReducer from './features/auth';
-import {watcherSaga} from './features/sagas/rootSaga';
+import {watcherSaga} from './features/auth/authSaga';
 
 const reducers = combineReducers({
   auth: authReducer,

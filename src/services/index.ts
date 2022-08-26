@@ -1,1 +1,1 @@
-export {registerUser, loginUser} from './auth';
+export {default as ApiService} from './ApiService';

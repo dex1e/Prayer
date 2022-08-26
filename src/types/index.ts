@@ -4,3 +4,10 @@ export interface IUser {
   name: string;
   password: string;
 }
+
+export enum FetchStatus {
+  IDLE = 'idle',
+  PENDING = 'pending',
+  FULFILLED = 'fulfilled',
+  REJECTED = 'rejected',
+}

@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {IUser} from '~types';
+import {FetchStatus, IUser} from '~types';
 
 import {initialState} from './initialState';
 
@@ -8,12 +8,23 @@ export const authSlice = createSlice({
   initialState,
 
   reducers: {
-    setUser: (state, action: PayloadAction<IUser>) => {
+    registerUser: (state, _action) => {
+      state.registrationFetchStatus = FetchStatus.PENDING;
+    },
+
+    registerUserSucces: (state, action: PayloadAction<IUser>) => {
       state.user = action.payload;
+
+      state.registrationFetchStatus = FetchStatus.FULFILLED;
+    },
+
+    registerUserFailed: (state, _action) => {
+      state.registrationFetchStatus = FetchStatus.REJECTED;
     },
   },
 });
 
-export const {setUser} = authSlice.actions;
+export const {registerUser, registerUserSucces, registerUserFailed} =
+  authSlice.actions;
 
 export default authSlice.reducer;

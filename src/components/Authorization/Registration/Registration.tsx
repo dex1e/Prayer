@@ -4,10 +4,16 @@ import {ButtonUI, Input} from '~components/ui';
 import {useForm, Controller} from 'react-hook-form';
 import {COLORS} from '~assets';
 import {useAppDispatch, useAppSelector} from '~store/hooks';
-import {setUser} from '~store/features/auth';
+import {registerUser} from '~store/features/auth';
+// import {FetchStatus} from '~types';
 
 export const Registration = () => {
-  const user = useAppSelector(state => state.auth.user);
+  const {user} = useAppSelector(state => state.auth);
+
+  // const isLoading = registrationFetchStatus === FetchStatus.PENDING;
+
+  // const isError = registrationFetchStatus === FetchStatus.REJECTED;
+
   const dispatch = useAppDispatch();
 
   const {
@@ -23,9 +29,7 @@ export const Registration = () => {
   });
 
   const onSubmit = (data: any) => {
-    console.log(data);
-
-    dispatch(setUser(data));
+    dispatch(registerUser(data));
   };
 
   console.log(user, 'USER REGISTRATION');

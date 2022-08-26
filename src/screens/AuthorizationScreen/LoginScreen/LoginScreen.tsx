@@ -1,21 +1,10 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {ButtonUI, Input} from '~components/ui';
-import {useForm, Controller} from 'react-hook-form';
+import {Controller, useForm} from 'react-hook-form';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {COLORS} from '~assets';
-import {useAppDispatch, useAppSelector} from '~store/hooks';
-import {registerUser} from '~store/features/auth';
-// import {FetchStatus} from '~types';
+import {ButtonUI, Input} from '~components/ui';
 
-export const Registration = () => {
-  const {user} = useAppSelector(state => state.auth);
-
-  // const isLoading = registrationFetchStatus === FetchStatus.PENDING;
-
-  // const isError = registrationFetchStatus === FetchStatus.REJECTED;
-
-  const dispatch = useAppDispatch();
-
+export const LoginScreen = () => {
   const {
     control,
     handleSubmit,
@@ -28,14 +17,10 @@ export const Registration = () => {
     },
   });
 
-  const onSubmit = (data: any) => {
-    dispatch(registerUser(data));
-  };
-
-  console.log(user, 'USER REGISTRATION');
+  const onSubmit = (data: any) => console.log(data);
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.inputItem}>
         <Controller
           control={control}
@@ -52,28 +37,8 @@ export const Registration = () => {
           )}
           name="email"
         />
-        {errors.email && (
-          <Text style={styles.errorText}>This field is required.</Text>
-        )}
-      </View>
 
-      <View style={styles.inputItem}>
-        <Controller
-          control={control}
-          rules={{
-            required: true,
-          }}
-          render={({field: {onChange, onBlur, value}}) => (
-            <Input
-              onChangeText={onChange}
-              onBlur={onBlur}
-              value={value}
-              placeholder="Name"
-            />
-          )}
-          name="name"
-        />
-        {errors.name && (
+        {errors.email && (
           <Text style={styles.errorText}>This field is required.</Text>
         )}
       </View>
@@ -95,19 +60,21 @@ export const Registration = () => {
           )}
           name="password"
         />
+
         {errors.password && (
           <Text style={styles.errorText}>This field is required.</Text>
         )}
       </View>
 
-      <ButtonUI title="Registration" onPress={handleSubmit(onSubmit)} />
-    </View>
+      <ButtonUI title="Login" onPress={handleSubmit(onSubmit)} />
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     width: '100%',
+    padding: 15,
   },
 
   inputItem: {

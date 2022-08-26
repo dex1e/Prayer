@@ -6,7 +6,12 @@ const Stack = createNativeStackNavigator();
 
 export const AuthNavigator = () => {
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: true,
+        headerTitleAlign: 'center',
+        headerShadowVisible: false,
+      }}>
       <Stack.Screen name="Authorization" component={AuthorizationScreen} />
     </Stack.Navigator>
   );

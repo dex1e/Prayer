@@ -1,10 +1,12 @@
 import React from 'react';
+
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {ButtonUI, Input} from '~components/ui';
 import {useForm, Controller} from 'react-hook-form';
 import {COLORS} from '~assets';
 import {useAppDispatch, useAppSelector} from '~store/hooks';
 import {registerUser} from '~store/features/auth';
+
 // import {FetchStatus} from '~types';
 
 export const RegistrationScreen = () => {

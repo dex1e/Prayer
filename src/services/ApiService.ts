@@ -1,6 +1,5 @@
 import axios from 'axios';
 import {BASE_URL} from '~constant';
-
 import {store} from '~store';
 
 export const instance = axios.create({

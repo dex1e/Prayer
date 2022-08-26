@@ -1,49 +1,61 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {COLORS} from '~assets';
 import {Login} from './Login';
 import {Registration} from './Registration';
 
 export const Authorization = () => {
-  const [activeTab, setActiveTab] = useState('');
+  const [activeTab, setActiveTab] = useState('Login');
 
   return (
-    <View>
-      <View style={styles.header}>
-        <Text style={styles.title}>Authorization</Text>
-        <View style={styles.tabs}>
-          <TouchableOpacity
-            style={activeTab === 'Login' ? styles.activeTab : styles.tab}
-            onPress={() => setActiveTab('Login')}>
-            <Text
-              style={
-                activeTab === 'Login' ? styles.activeTabTitle : styles.tabTitle
-              }>
-              Login
-            </Text>
-          </TouchableOpacity>
+    <ScrollView>
+      <View>
+        <View style={styles.header}>
+          <Text style={styles.title}>Authorization</Text>
+          <View style={styles.tabs}>
+            <TouchableOpacity
+              style={activeTab === 'Login' ? styles.activeTab : styles.tab}
+              onPress={() => setActiveTab('Login')}>
+              <Text
+                style={
+                  activeTab === 'Login'
+                    ? styles.activeTabTitle
+                    : styles.tabTitle
+                }>
+                Login
+              </Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            style={activeTab === 'Registration' ? styles.activeTab : styles.tab}
-            onPress={() => setActiveTab('Registration')}>
-            <Text
+            <TouchableOpacity
               style={
-                activeTab === 'Registration'
-                  ? styles.activeTabTitle
-                  : styles.tabTitle
-              }>
-              Registration
-            </Text>
-          </TouchableOpacity>
+                activeTab === 'Registration' ? styles.activeTab : styles.tab
+              }
+              onPress={() => setActiveTab('Registration')}>
+              <Text
+                style={
+                  activeTab === 'Registration'
+                    ? styles.activeTabTitle
+                    : styles.tabTitle
+                }>
+                Registration
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <View style={styles.container}>
+          {activeTab === 'Login' && <Login />}
+
+          {activeTab === 'Registration' && <Registration />}
         </View>
       </View>
-
-      <View style={styles.container}>
-        {activeTab === 'Login' && <Login />}
-
-        {activeTab === 'Registration' && <Registration />}
-      </View>
-    </View>
+    </ScrollView>
   );
 };
 

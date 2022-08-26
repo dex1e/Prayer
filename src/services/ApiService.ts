@@ -24,6 +24,8 @@ class ApiService {
   }
 
   post(url: string, data: any, parameters?: any) {
+    console.log('API SERVICE', data);
+
     return instance.post(url, data, parameters);
   }
 

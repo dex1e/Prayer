@@ -1,16 +1,27 @@
 import React from 'react';
 import {FC} from 'react';
-import {ButtonProps, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {
+  ActivityIndicator,
+  ButtonProps,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 import {COLORS} from '~assets';
 
 interface ButtonUIProps extends ButtonProps {
   title: string;
+  isLoading?: boolean;
 }
 
-export const ButtonUI: FC<ButtonUIProps> = ({title, ...props}) => {
+export const ButtonUI: FC<ButtonUIProps> = ({title, isLoading, ...props}) => {
   return (
     <TouchableOpacity {...props} style={styles.button}>
-      <Text style={styles.text}>{title}</Text>
+      {isLoading ? (
+        <ActivityIndicator size="large" color={COLORS.white} />
+      ) : (
+        <Text style={styles.text}>{title}</Text>
+      )}
     </TouchableOpacity>
   );
 };

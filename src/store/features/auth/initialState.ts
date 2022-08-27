@@ -10,5 +10,7 @@ export const initialState: IUserInitialState = {
   },
 
   registrationFetchStatus: FetchStatus.IDLE,
+  loginFetchStatus: FetchStatus.IDLE,
   error: '',
+  isAuth: false,
 };

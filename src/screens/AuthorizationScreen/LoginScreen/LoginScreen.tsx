@@ -3,8 +3,14 @@ import {Controller, useForm} from 'react-hook-form';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {COLORS} from '~assets';
 import {ButtonUI, Input} from '~components/ui';
+import {loginUser} from '~store/features/auth';
+import {useAppDispatch, useAppSelector} from '~store/hooks';
+import {FetchStatus} from '~types';
 
 export const LoginScreen = () => {
+  const loginFetchStatus = useAppSelector(state => state.auth.loginFetchStatus);
+  const dispatch = useAppDispatch();
+
   const {
     control,
     handleSubmit,
@@ -12,12 +18,17 @@ export const LoginScreen = () => {
   } = useForm({
     defaultValues: {
       email: '',
-      name: '',
       password: '',
     },
   });
 
-  const onSubmit = (data: any) => console.log(data);
+  const isLoading = loginFetchStatus === FetchStatus.PENDING;
+
+  const isError = loginFetchStatus === FetchStatus.REJECTED;
+
+  const onSubmit = (data: any) => {
+    dispatch(loginUser(data));
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -66,7 +77,13 @@ export const LoginScreen = () => {
         )}
       </View>
 
-      <ButtonUI title="Login" onPress={handleSubmit(onSubmit)} />
+      <ButtonUI
+        title="Login"
+        onPress={handleSubmit(onSubmit)}
+        isLoading={isLoading}
+      />
+
+      {isError && <Text style={styles.errorText}>Error with submit form</Text>}
     </ScrollView>
   );
 };

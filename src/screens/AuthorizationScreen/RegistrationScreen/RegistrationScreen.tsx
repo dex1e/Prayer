@@ -1,22 +1,21 @@
 import React from 'react';
-
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {ButtonUI, Input} from '~components/ui';
 import {useForm, Controller} from 'react-hook-form';
 import {COLORS} from '~assets';
 import {useAppDispatch, useAppSelector} from '~store/hooks';
 import {registerUser} from '~store/features/auth';
-
-// import {FetchStatus} from '~types';
+import {FetchStatus} from '~types';
 
 export const RegistrationScreen = () => {
-  const {user} = useAppSelector(state => state.auth);
-
-  // const isLoading = registrationFetchStatus === FetchStatus.PENDING;
-
-  // const isError = registrationFetchStatus === FetchStatus.REJECTED;
-
+  const registrationFetchStatus = useAppSelector(
+    state => state.auth.registrationFetchStatus,
+  );
   const dispatch = useAppDispatch();
+
+  const isLoading = registrationFetchStatus === FetchStatus.PENDING;
+
+  const isError = registrationFetchStatus === FetchStatus.REJECTED;
 
   const {
     control,
@@ -33,8 +32,6 @@ export const RegistrationScreen = () => {
   const onSubmit = (data: any) => {
     dispatch(registerUser(data));
   };
-
-  console.log(user, 'USER REGISTRATION');
 
   return (
     <ScrollView style={styles.container}>
@@ -105,7 +102,13 @@ export const RegistrationScreen = () => {
         )}
       </View>
 
-      <ButtonUI title="Registration" onPress={handleSubmit(onSubmit)} />
+      <ButtonUI
+        title="Registration"
+        onPress={handleSubmit(onSubmit)}
+        isLoading={isLoading}
+      />
+
+      {isError && <Text>Error with submit form</Text>}
     </ScrollView>
   );
 };

@@ -13,6 +13,7 @@ export const AuthorizationScreen = () => {
       screenOptions={{
         tabBarActiveTintColor: COLORS.lightBlue,
         tabBarInactiveTintColor: COLORS.lightGray,
+        tabBarPressColor: 'transparent',
       }}>
       <Tab.Screen name="Login" component={LoginScreen} />
       <Tab.Screen name="Registration" component={RegistrationScreen} />

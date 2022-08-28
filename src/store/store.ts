@@ -1,7 +1,7 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import authReducer from './features/auth';
-import {watcherSaga} from './features/auth/authSaga';
+import {rootWatcher} from './features';
 
 const reducers = combineReducers({
   auth: authReducer,
@@ -15,7 +15,7 @@ export const store = configureStore({
     getDefaultMiddleware({thunk: false}).concat(sagaMiddleware),
 });
 
-sagaMiddleware.run(watcherSaga);
+sagaMiddleware.run(rootWatcher);
 
 export type RootState = ReturnType<typeof store.getState>;
 

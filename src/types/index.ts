@@ -1,3 +1,10 @@
+export enum FetchStatus {
+  IDLE = 'idle',
+  PENDING = 'pending',
+  FULFILLED = 'fulfilled',
+  REJECTED = 'rejected',
+}
+
 export interface IUser {
   token: string;
   email: string;
@@ -5,9 +12,9 @@ export interface IUser {
   password: string;
 }
 
-export enum FetchStatus {
-  IDLE = 'idle',
-  PENDING = 'pending',
-  FULFILLED = 'fulfilled',
-  REJECTED = 'rejected',
+export interface IColumn {
+  id: number | null;
+  title: string;
+  description: string;
+  userId: number | null;
 }

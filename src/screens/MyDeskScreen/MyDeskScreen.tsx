@@ -1,17 +1,36 @@
-import React from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import React, {useEffect} from 'react';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {COLORS} from '~assets';
+import {getData} from '~services';
 import Plus from '../../assets/images/Plus.svg';
 
 export const MyDeskScreen = () => {
+  useEffect(() => {
+    getColumns();
+  }, []);
+
+  const getColumns = async () => {
+    await getData('columns');
+  };
+
   return (
     <ScrollView>
       <View style={styles.header}>
         <Text style={styles.title}>My Desk</Text>
 
-        <View style={styles.icon}>
+        <TouchableOpacity style={styles.buttonAdd}>
           <Plus />
-        </View>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.columns}>
+        <View style={styles.column}>ColumItem</View>
       </View>
 
       <View />
@@ -35,9 +54,13 @@ const styles = StyleSheet.create({
     paddingVertical: 22,
   },
 
-  icon: {
+  buttonAdd: {
     position: 'absolute',
     top: 24,
     right: 24,
   },
+
+  columns: {},
+
+  column: {},
 });

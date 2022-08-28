@@ -11,7 +11,7 @@ import {
   registerUserSucces,
 } from './authSlice';
 
-export function* watcherSaga() {
+export function* userWatcherSaga() {
   yield takeLatest(registerUser.type, handleRegisterUser);
   yield takeLatest(loginUser.type, handleLoginUser);
 }

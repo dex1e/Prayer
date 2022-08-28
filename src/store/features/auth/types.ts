@@ -5,5 +5,4 @@ export interface IUserInitialState {
   registrationFetchStatus: FetchStatus;
   loginFetchStatus: FetchStatus;
   error: string;
-  isAuth: boolean;
 }

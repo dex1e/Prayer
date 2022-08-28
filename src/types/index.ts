@@ -5,6 +5,10 @@ export enum FetchStatus {
   REJECTED = 'rejected',
 }
 
+export enum AsyncStorageVariables {
+  USER = 'user',
+}
+
 export interface IUser {
   token: string;
   email: string;

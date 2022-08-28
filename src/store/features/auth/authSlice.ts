@@ -1,5 +1,4 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {setData} from '~services';
 import {FetchStatus, IUser} from '~types';
 
 import {initialState} from './initialState';
@@ -9,6 +8,19 @@ export const authSlice = createSlice({
   initialState,
 
   reducers: {
+    getToken: state => {
+      state.getUserFetchStatus = FetchStatus.PENDING;
+    },
+
+    getTokenSucces: (state, action: PayloadAction<string>) => {
+      state.user.token = action.payload;
+      state.getUserFetchStatus = FetchStatus.FULFILLED;
+    },
+
+    getTokenFailed: (state, _action) => {
+      state.getUserFetchStatus = FetchStatus.REJECTED;
+    },
+
     registerUser: (state, _action) => {
       state.registrationFetchStatus = FetchStatus.PENDING;
     },
@@ -16,8 +28,6 @@ export const authSlice = createSlice({
     registerUserSucces: (state, action: PayloadAction<IUser>) => {
       state.user = action.payload;
       state.registrationFetchStatus = FetchStatus.FULFILLED;
-
-      setData('user', state.user);
     },
 
     registerUserFailed: (state, _action) => {
@@ -31,8 +41,6 @@ export const authSlice = createSlice({
     loginUserSucces: (state, action: PayloadAction<IUser>) => {
       state.user = action.payload;
       state.loginFetchStatus = FetchStatus.FULFILLED;
-
-      setData('user', state.user);
     },
 
     loginUserFailed: (state, _action) => {
@@ -48,6 +56,9 @@ export const {
   loginUser,
   loginUserSucces,
   loginUserFailed,
+  getToken,
+  getTokenSucces,
+  getTokenFailed,
 } = authSlice.actions;
 
 export default authSlice.reducer;

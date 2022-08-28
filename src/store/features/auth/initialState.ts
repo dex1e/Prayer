@@ -11,6 +11,6 @@ export const initialState: IUserInitialState = {
 
   registrationFetchStatus: FetchStatus.IDLE,
   loginFetchStatus: FetchStatus.IDLE,
+  getUserFetchStatus: FetchStatus.IDLE,
   error: '',
-  isAuth: false,
 };

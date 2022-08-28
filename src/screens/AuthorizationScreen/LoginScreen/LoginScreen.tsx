@@ -7,8 +7,15 @@ import {loginUser} from '~store/features/auth';
 import {useAppDispatch, useAppSelector} from '~store/hooks';
 import {FetchStatus} from '~types';
 
+interface LoginFormValues {
+  email: string;
+  password: string;
+}
+
 export const LoginScreen = () => {
-  const loginFetchStatus = useAppSelector(state => state.auth.loginFetchStatus);
+  const loginFetchStatus = useAppSelector(
+    state => state?.auth?.loginFetchStatus,
+  );
   const dispatch = useAppDispatch();
 
   const {
@@ -26,7 +33,7 @@ export const LoginScreen = () => {
 
   const isError = loginFetchStatus === FetchStatus.REJECTED;
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: LoginFormValues) => {
     dispatch(loginUser(data));
   };
 

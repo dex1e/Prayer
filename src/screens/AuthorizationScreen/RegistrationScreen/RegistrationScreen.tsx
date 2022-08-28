@@ -7,6 +7,12 @@ import {useAppDispatch, useAppSelector} from '~store/hooks';
 import {registerUser} from '~store/features/auth';
 import {FetchStatus} from '~types';
 
+interface RegistrationFormValues {
+  email: string;
+  name: string;
+  password: string;
+}
+
 export const RegistrationScreen = () => {
   const registrationFetchStatus = useAppSelector(
     state => state.auth.registrationFetchStatus,
@@ -29,7 +35,7 @@ export const RegistrationScreen = () => {
     },
   });
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: RegistrationFormValues) => {
     dispatch(registerUser(data));
   };
 

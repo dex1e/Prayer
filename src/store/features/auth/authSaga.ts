@@ -1,8 +1,11 @@
 import {PayloadAction} from '@reduxjs/toolkit';
 import {put, call, takeLatest} from 'redux-saga/effects';
-import {IUser} from '~types';
+import {AsyncStorageVariables, IUser} from '~types';
 import {signIn, signUp} from './authApi';
 import {
+  getToken,
+  getTokenFailed,
+  getTokenSucces,
   loginUser,
   loginUserFailed,
   loginUserSucces,
@@ -10,10 +13,26 @@ import {
   registerUserFailed,
   registerUserSucces,
 } from './authSlice';
+import {AsyncStorageService} from '~services';
 
 export function* watcherSaga() {
   yield takeLatest(registerUser.type, handleRegisterUser);
   yield takeLatest(loginUser.type, handleLoginUser);
+  yield takeLatest(getToken.type, handleGetToken);
+}
+
+export function* handleGetToken() {
+  try {
+    const {token} = yield call(() =>
+      AsyncStorageService.getData(AsyncStorageVariables.USER),
+    );
+
+    if (token) {
+      yield put(getTokenSucces(token));
+    }
+  } catch (error) {
+    yield put(getTokenFailed(error));
+  }
 }
 
 export function* handleRegisterUser(action: PayloadAction<IUser>) {
@@ -22,6 +41,8 @@ export function* handleRegisterUser(action: PayloadAction<IUser>) {
   try {
     const {data} = yield call(() => signUp(email, name, password));
     yield put(registerUserSucces(data));
+
+    AsyncStorageService.setData(AsyncStorageVariables.USER, data);
   } catch (error) {
     yield put(registerUserFailed(error));
   }
@@ -33,6 +54,8 @@ export function* handleLoginUser(action: PayloadAction<IUser>) {
   try {
     const {data} = yield call(() => signIn(email, password));
     yield put(loginUserSucces(data));
+
+    AsyncStorageService.setData(AsyncStorageVariables.USER, data);
   } catch (error) {
     yield put(loginUserFailed(error));
   }

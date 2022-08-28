@@ -1,23 +1,18 @@
 import {NavigationContainer} from '@react-navigation/native';
-import React, {useEffect, useState} from 'react';
-import {getData} from '~services';
+import React, {useEffect} from 'react';
+import {getToken} from '~store/features/auth';
+import {useAppDispatch, useAppSelector} from '~store/hooks';
+
 import {AuthNavigator} from './AuthNavigator';
 import {MainNavigator} from './MainNavigator';
 
 export const Routes = () => {
-  const [token, setToken] = useState('');
+  const token = useAppSelector(state => state.auth.user.token);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    getUser();
-  }, []);
-
-  const getUser = async () => {
-    const data = await getData('user');
-
-    if (data) {
-      setToken(data?.token);
-    }
-  };
+    dispatch(getToken());
+  }, [dispatch]);
 
   return (
     <NavigationContainer>

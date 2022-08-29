@@ -14,10 +14,10 @@ export const MyDeskScreen = () => {
   }, [dispatch]);
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
+    <ScrollView style={styles.container}>
+      <View style={styles.containerColumns}>
         {columns?.map(column => {
-          return <Column key={column.id} column={column} />;
+          return <Column key={column?.id} column={column} />;
         })}
       </View>
 
@@ -27,6 +27,10 @@ export const MyDeskScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: COLORS.white,
+  },
+
   header: {
     borderBottomWidth: 1,
     borderBottomColor: COLORS.gray,
@@ -48,7 +52,7 @@ const styles = StyleSheet.create({
     right: 24,
   },
 
-  container: {
+  containerColumns: {
     padding: 15,
   },
 });

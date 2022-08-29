@@ -47,16 +47,17 @@ export const authSlice = createSlice({
       state.loginFetchStatus = FetchStatus.REJECTED;
     },
 
-    logOutUser: state => {
-      state.user = {token: '', email: '', name: '', password: ''};
+    signOutUser: state => {
+      state.signOutFetchStatus = FetchStatus.PENDING;
     },
 
-    logOutUserSucces: state => {
+    signOutUserSucces: state => {
       state.user = {token: '', email: '', name: '', password: ''};
+      state.signOutFetchStatus = FetchStatus.FULFILLED;
     },
 
-    logOutUserFailed: state => {
-      state.user = {token: '', email: '', name: '', password: ''};
+    signOutUserFailed: (state, _action) => {
+      state.signOutFetchStatus = FetchStatus.REJECTED;
     },
   },
 });
@@ -71,6 +72,9 @@ export const {
   getToken,
   getTokenSucces,
   getTokenFailed,
+  signOutUser,
+  signOutUserSucces,
+  signOutUserFailed,
 } = authSlice.actions;
 
 export default authSlice.reducer;

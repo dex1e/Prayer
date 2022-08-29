@@ -20,6 +20,14 @@ class AStorageService {
       console.log(error);
     }
   }
+
+  async removeData(key: string) {
+    try {
+      await AsyncStorage.removeItem(key);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 
 export const AsyncStorageService = new AStorageService();

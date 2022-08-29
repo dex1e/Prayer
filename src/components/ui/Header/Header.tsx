@@ -1,6 +1,6 @@
 import React, {FC, ReactNode} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {COLORS} from '~assets';
+import {COLORS, FONT_FAMILY} from '~assets';
 
 interface HeaderProps {
   title: string;
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontFamily: 'SF UI Text',
+    fontFamily: FONT_FAMILY.primary,
     fontSize: 17,
     lineHeight: 20,
     color: COLORS.primary,

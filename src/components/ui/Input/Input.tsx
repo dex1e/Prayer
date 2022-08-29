@@ -1,7 +1,7 @@
 import React from 'react';
 import {FC} from 'react';
 import {StyleSheet, TextInput, TextInputProps, View} from 'react-native';
-import {COLORS} from '~assets';
+import {COLORS, FONT_FAMILY} from '~assets';
 
 interface InputProps extends TextInputProps {
   placeholder: string;
@@ -29,6 +29,6 @@ const styles = StyleSheet.create({
     color: COLORS.secondaryGray,
     fontSize: 17,
     lineHeight: 20,
-    fontFamily: 'SF UI Text',
+    fontFamily: FONT_FAMILY.primary,
   },
 });

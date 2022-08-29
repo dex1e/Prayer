@@ -9,16 +9,16 @@ export const authSlice = createSlice({
 
   reducers: {
     getToken: state => {
-      state.getUserFetchStatus = FetchStatus.PENDING;
+      state.getTokenFetchStatus = FetchStatus.PENDING;
     },
 
     getTokenSucces: (state, action: PayloadAction<string>) => {
       state.user.token = action.payload;
-      state.getUserFetchStatus = FetchStatus.FULFILLED;
+      state.getTokenFetchStatus = FetchStatus.FULFILLED;
     },
 
-    getTokenFailed: (state, _action) => {
-      state.getUserFetchStatus = FetchStatus.REJECTED;
+    getTokenFailed: state => {
+      state.getTokenFetchStatus = FetchStatus.REJECTED;
     },
 
     registerUser: (state, _action) => {

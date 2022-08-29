@@ -16,6 +16,7 @@ export const LoginScreen = () => {
   const loginFetchStatus = useAppSelector(
     state => state?.auth?.loginFetchStatus,
   );
+  const error = useAppSelector(state => state.auth.error);
   const dispatch = useAppDispatch();
 
   const {
@@ -84,13 +85,13 @@ export const LoginScreen = () => {
         )}
       </View>
 
+      {isError && <Text style={styles.errorText}>{error}</Text>}
+
       <ButtonUI
         title="Login"
         onPress={handleSubmit(onSubmit)}
         isLoading={isLoading}
       />
-
-      {isError && <Text style={styles.errorText}>Error with submit form</Text>}
     </ScrollView>
   );
 };
@@ -99,6 +100,7 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     padding: 15,
+    backgroundColor: COLORS.white,
   },
 
   inputItem: {

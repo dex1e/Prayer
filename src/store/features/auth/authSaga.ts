@@ -23,15 +23,18 @@ export function* userWatcherSaga() {
 
 export function* handleGetToken() {
   try {
-    const {token} = yield call(() =>
-      AsyncStorageService.getData(AsyncStorageVariables.USER),
+    const {token} = yield call(
+      AsyncStorageService.getData,
+      AsyncStorageVariables.USER,
     );
 
     if (token) {
       yield put(getTokenSucces(token));
+    } else {
+      yield put(getTokenFailed());
     }
   } catch (error) {
-    yield put(getTokenFailed(error));
+    yield put(getTokenFailed());
   }
 }
 

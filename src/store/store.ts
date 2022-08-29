@@ -1,10 +1,12 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import authReducer from './features/auth';
+import columnsReducer from './features/columns';
 import {rootWatcher} from './features';
 
 const reducers = combineReducers({
   auth: authReducer,
+  columns: columnsReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();

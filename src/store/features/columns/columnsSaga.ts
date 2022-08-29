@@ -1,4 +1,5 @@
 import {call, put, takeLatest} from 'redux-saga/effects';
+import {AsyncStorageService} from '~services';
 import {getColumnsApi} from './columnsApi';
 
 import {getColumns, getColumnsFailed, getColumnsSucces} from './columnsSlice';
@@ -11,6 +12,8 @@ export function* handleGetColumns() {
   try {
     const {data} = yield call(() => getColumnsApi());
     yield put(getColumnsSucces(data));
+
+    AsyncStorageService.setData('columns', data);
   } catch (error) {
     yield put(getColumnsFailed(error));
   }

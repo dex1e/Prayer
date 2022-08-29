@@ -46,6 +46,18 @@ export const authSlice = createSlice({
     loginUserFailed: (state, _action) => {
       state.loginFetchStatus = FetchStatus.REJECTED;
     },
+
+    logOutUser: state => {
+      state.user = {token: '', email: '', name: '', password: ''};
+    },
+
+    logOutUserSucces: state => {
+      state.user = {token: '', email: '', name: '', password: ''};
+    },
+
+    logOutUserFailed: state => {
+      state.user = {token: '', email: '', name: '', password: ''};
+    },
   },
 });
 

@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     borderColor: COLORS.gray,
-    padding: 15,
+    paddingHorizontal: 15,
   },
 
   input: {
@@ -29,5 +29,6 @@ const styles = StyleSheet.create({
     color: COLORS.secondaryGray,
     fontSize: 17,
     lineHeight: 20,
+    fontFamily: 'SF UI Text',
   },
 });

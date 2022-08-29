@@ -17,10 +17,10 @@ export const RegistrationScreen = () => {
   const registrationFetchStatus = useAppSelector(
     state => state.auth.registrationFetchStatus,
   );
+  const error = useAppSelector(state => state.auth.error);
   const dispatch = useAppDispatch();
 
   const isLoading = registrationFetchStatus === FetchStatus.PENDING;
-
   const isError = registrationFetchStatus === FetchStatus.REJECTED;
 
   const {
@@ -116,7 +116,7 @@ export const RegistrationScreen = () => {
         isLoading={isLoading}
       />
 
-      {isError && <Text>Error with submit form</Text>}
+      {isError && <Text>{error}</Text>}
     </ScrollView>
   );
 };
@@ -125,6 +125,7 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     padding: 15,
+    backgroundColor: COLORS.white,
   },
 
   contentContainer: {paddingBottom: 30},

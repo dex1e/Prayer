@@ -17,7 +17,7 @@ export const authSlice = createSlice({
       state.getTokenFetchStatus = FetchStatus.FULFILLED;
     },
 
-    getTokenFailed: (state, _action) => {
+    getTokenFailed: state => {
       state.getTokenFetchStatus = FetchStatus.REJECTED;
     },
 

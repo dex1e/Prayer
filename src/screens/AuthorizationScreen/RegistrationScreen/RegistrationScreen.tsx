@@ -40,7 +40,9 @@ export const RegistrationScreen = () => {
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.contentContainer}>
       <View style={styles.inputItem}>
         <Controller
           control={control}
@@ -124,6 +126,8 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 15,
   },
+
+  contentContainer: {paddingBottom: 30},
 
   inputItem: {
     width: '100%',

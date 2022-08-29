@@ -7,7 +7,7 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
-import {COLORS} from '~assets';
+import {COLORS, FONT_FAMILY} from '~assets';
 
 interface ButtonUIProps extends ButtonProps {
   title: string;
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: COLORS.gold,
     borderRadius: 15,
-    fontFamily: 'SF UI Text',
+    fontFamily: FONT_FAMILY.primary,
   },
 
   text: {

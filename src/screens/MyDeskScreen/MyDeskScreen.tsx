@@ -15,8 +15,8 @@ export const MyDeskScreen = () => {
 
   return (
     <ScrollView>
-      <View style={styles.columnsStyle}>
-        {columns.map(column => {
+      <View style={styles.container}>
+        {columns?.map(column => {
           return <Column key={column.id} column={column} />;
         })}
       </View>
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     right: 24,
   },
 
-  columnsStyle: {},
-
-  column: {},
+  container: {
+    padding: 15,
+  },
 });

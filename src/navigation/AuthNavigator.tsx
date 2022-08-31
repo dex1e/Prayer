@@ -11,13 +11,12 @@ export const AuthNavigator = () => {
       screenOptions={{
         headerShown: true,
         headerTitleAlign: 'center',
-        headerShadowVisible: false,
       }}>
       <Stack.Screen
         name="Authorization"
         component={AuthorizationScreen}
         options={{
-          headerTitle: props => <Header title="Authorization" {...props} />,
+          header: () => <Header title="Authorization" isDividerActive />,
         }}
       />
     </Stack.Navigator>

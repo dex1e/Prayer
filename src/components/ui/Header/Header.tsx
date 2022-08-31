@@ -6,6 +6,7 @@ interface HeaderProps {
   title: string;
   buttonLeft?: ReactNode;
   buttonRight?: ReactNode;
+  isDividerActive?: boolean;
   onPressButtonRight?: () => void;
   onPressButtonLeft?: () => void;
 }
@@ -16,6 +17,7 @@ export const Header: FC<HeaderProps> = ({
   buttonRight,
   onPressButtonRight,
   onPressButtonLeft,
+  isDividerActive,
 }) => {
   return (
     <View style={styles.container}>
@@ -28,6 +30,8 @@ export const Header: FC<HeaderProps> = ({
       <TouchableOpacity style={styles.buttonRight} onPress={onPressButtonRight}>
         {buttonRight}
       </TouchableOpacity>
+
+      {isDividerActive && <View style={styles.divider} />}
     </View>
   );
 };
@@ -39,15 +43,17 @@ const styles = StyleSheet.create({
     paddingBottom: 22,
     justifyContent: 'space-between',
     backgroundColor: COLORS.white,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.gray,
   },
 
   buttonLeft: {
+    width: 24,
+    height: 24,
     marginTop: 2,
     marginLeft: 15,
   },
   buttonRight: {
+    width: 24,
+    height: 24,
     marginRight: 15,
   },
 
@@ -56,5 +62,13 @@ const styles = StyleSheet.create({
     fontSize: 17,
     lineHeight: 20,
     color: COLORS.primary,
+  },
+
+  divider: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.gray,
   },
 });

@@ -51,6 +51,7 @@ export const ModalAddColumn: FC<ModalAddColumnProps> = ({
       <View>
         <Header
           title="Add new Column"
+          isDividerActive
           buttonRight={<CloseIcon fill={COLORS.lightBlue} />}
           onPressButtonRight={onRequestClose}
         />

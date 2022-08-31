@@ -1,7 +1,7 @@
 import React from 'react';
 import {FC} from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
-import {COLORS} from '~assets';
+import {COLORS, FONT_FAMILY} from '~assets';
 import {IColumn} from '~types';
 
 interface ColumnProps {
@@ -11,7 +11,7 @@ interface ColumnProps {
 export const Column: FC<ColumnProps> = ({column}) => {
   return (
     <TouchableOpacity style={styles.column}>
-      <Text>{column?.title}</Text>
+      <Text style={styles.columnTitle}>{column?.title}</Text>
     </TouchableOpacity>
   );
 };
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
 
   columnTitle: {
     color: COLORS.primary,
-    fontFamily: 'SF UI Text',
+    fontFamily: FONT_FAMILY.primary,
     fontSize: 17,
     lineHeight: 20,
   },

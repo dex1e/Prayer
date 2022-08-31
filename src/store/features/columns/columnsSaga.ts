@@ -1,11 +1,21 @@
+import {PayloadAction} from '@reduxjs/toolkit';
 import {call, put, takeLatest} from 'redux-saga/effects';
 import {AsyncStorageService} from '~services';
-import {getColumnsApi} from './columnsApi';
+import {IColumn} from '~types';
+import {getColumnsApi, setNewColumn} from './columnsApi';
 
-import {getColumns, getColumnsFailed, getColumnsSucces} from './columnsSlice';
+import {
+  addColumn,
+  addColumnFailed,
+  addColumnSucces,
+  getColumns,
+  getColumnsFailed,
+  getColumnsSucces,
+} from './columnsSlice';
 
 export function* columnsWatcherSaga() {
   yield takeLatest(getColumns.type, handleGetColumns);
+  yield takeLatest(addColumn.type, handleAddColumn);
 }
 
 export function* handleGetColumns() {
@@ -19,13 +29,14 @@ export function* handleGetColumns() {
   }
 }
 
-// export function* handleLoginUser(action: PayloadAction<IUser>) {
-//   const {email, password} = action.payload;
+export function* handleAddColumn(action: PayloadAction<IColumn>) {
+  const {title, description} = action.payload;
 
-//   try {
-//     const {data} = yield call(() => signIn(email, password));
-//     yield put(loginUserSucces(data));
-//   } catch (error) {
-//     yield put(loginUserFailed(error));
-//   }
-// }
+  try {
+    const {data} = yield call(() => setNewColumn(title, description));
+
+    yield put(addColumnSucces(data));
+  } catch (error) {
+    yield put(addColumnFailed(error));
+  }
+}

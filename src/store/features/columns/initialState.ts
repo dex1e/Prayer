@@ -11,5 +11,6 @@ export const initialState: IColumnsInitialState = {
     },
   ],
   getColumnsFetchStatus: FetchStatus.IDLE,
+  addColumnFetchStatus: FetchStatus.IDLE,
   error: '',
 };

@@ -5,10 +5,6 @@ export const getColumnsApi = async () => {
   return ApiService.get(API_URL.GET_COLUMNS);
 };
 
-export const addColumn = async (
-  title: string,
-  description: string,
-  prayerId: number,
-) => {
-  return ApiService.post(API_URL.ADD_COLUMN, {title, description, prayerId});
+export const setNewColumn = async (title: string, description: string) => {
+  return ApiService.post(API_URL.ADD_COLUMN, {title, description});
 };

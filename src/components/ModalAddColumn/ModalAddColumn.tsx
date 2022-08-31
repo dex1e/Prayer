@@ -13,6 +13,11 @@ interface ModalAddColumnProps {
   onRequestClose: () => void;
 }
 
+interface ModalAddColumnValues {
+  title: string;
+  description: string;
+}
+
 export const ModalAddColumn: FC<ModalAddColumnProps> = ({
   visible,
   onRequestClose,
@@ -35,8 +40,8 @@ export const ModalAddColumn: FC<ModalAddColumnProps> = ({
 
   const isLoading = addColumnFetchStatus === FetchStatus.PENDING;
 
-  const addNewColumn = ({title, description}: any) => {
-    dispatch(addColumn({title: title, description: description}));
+  const addNewColumn = (data: ModalAddColumnValues) => {
+    dispatch(addColumn(data));
 
     onRequestClose();
   };

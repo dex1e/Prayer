@@ -7,7 +7,7 @@ interface HeaderProps {
   buttonLeft?: ReactNode;
   buttonRight?: ReactNode;
   onPressButtonRight?: () => void;
-  onPressButtonLeft?: any;
+  onPressButtonLeft?: () => void;
 }
 
 export const Header: FC<HeaderProps> = ({

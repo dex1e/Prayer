@@ -11,7 +11,6 @@ import {FetchStatus} from '~types';
 interface MyDeskScreenProps {
   isAddColumnModalVisible: boolean;
   setIsAddColumnModalVisible: (isAddColumnModalVisible: boolean) => void;
-  onPress?: any;
 }
 
 export const MyDeskScreen: FC<MyDeskScreenProps> = ({

@@ -31,6 +31,7 @@ export const ModalAddColumn: FC<ModalAddColumnProps> = ({
     control,
     handleSubmit,
     formState: {errors},
+    reset,
   } = useForm({
     defaultValues: {
       title: '',
@@ -42,7 +43,7 @@ export const ModalAddColumn: FC<ModalAddColumnProps> = ({
 
   const addNewColumn = (data: ModalAddColumnValues) => {
     dispatch(addColumn(data));
-
+    reset();
     onRequestClose();
   };
 
@@ -50,7 +51,7 @@ export const ModalAddColumn: FC<ModalAddColumnProps> = ({
     <ModalUi visible={visible} onRequestClose={onRequestClose}>
       <View>
         <Header
-          title="Add new Column"
+          title="Add column"
           isDividerActive
           buttonRight={<CloseIcon fill={COLORS.lightBlue} />}
           onPressButtonRight={onRequestClose}

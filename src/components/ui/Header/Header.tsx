@@ -46,14 +46,11 @@ const styles = StyleSheet.create({
   },
 
   buttonLeft: {
-    width: 24,
-    height: 24,
     marginTop: 2,
     marginLeft: 15,
   },
+
   buttonRight: {
-    width: 24,
-    height: 24,
     marginRight: 15,
   },
 

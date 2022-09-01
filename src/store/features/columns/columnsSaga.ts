@@ -2,7 +2,7 @@ import {PayloadAction} from '@reduxjs/toolkit';
 import {call, put, takeLatest} from 'redux-saga/effects';
 import {AsyncStorageService} from '~services';
 import {IColumn} from '~types';
-import {getColumnsApi, setNewColumn} from './columnsApi';
+import {getColumnsApi, createNewColumn} from './columnsApi';
 
 import {
   addColumn,
@@ -33,7 +33,7 @@ export function* handleAddColumn(action: PayloadAction<IColumn>) {
   const {title, description} = action.payload;
 
   try {
-    const {data} = yield call(() => setNewColumn(title, description));
+    const {data} = yield call(() => createNewColumn(title, description));
 
     yield put(addColumnSucces(data));
   } catch (error) {

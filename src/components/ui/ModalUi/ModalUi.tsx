@@ -1,5 +1,5 @@
 import React, {FC, ReactNode} from 'react';
-import {Modal, ScrollView} from 'react-native';
+import {Modal, View} from 'react-native';
 
 interface ModalUiProps {
   children: ReactNode;
@@ -13,7 +13,7 @@ export const ModalUi: FC<ModalUiProps> = ({
   onRequestClose,
 }) => {
   return (
-    <ScrollView>
+    <View>
       <Modal
         animationType="slide"
         transparent={false}
@@ -21,6 +21,6 @@ export const ModalUi: FC<ModalUiProps> = ({
         onRequestClose={onRequestClose}>
         {children}
       </Modal>
-    </ScrollView>
+    </View>
   );
 };

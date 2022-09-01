@@ -2,7 +2,7 @@ import * as React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {MyDeskScreen, PrayersScreen} from '~screens';
 import {Header} from '~components/ui';
-import {PlusIcon, SettingsIcon, SignOut} from '~components/icons';
+import {PlusIcon, SignOut} from '~components/icons';
 import {COLORS} from '~assets';
 import {useAppDispatch} from '~store/hooks';
 import {signOutUser} from '~store/features/auth';
@@ -62,25 +62,28 @@ export const MainNavigator = () => {
 
       <Stack.Screen
         name="Prayers"
-        children={() => (
+        children={({route}: any) => (
           <PrayersScreen
             isSettingsModalVisible={isSettingsModalVisible}
             onCloseSettingsModalVisible={handleCloseSettingsModalVisible}
+            onPressButtonRight={handleSignOut}
+            onPressButtonLeft={handleSettingsModalVisible}
+            column={route?.params?.column}
           />
         )}
         options={{
-          headerShown: true,
-          header: ({route}: any) => (
-            <Header
-              buttonLeft={<SettingsIcon width={20} height={20} />}
-              buttonRight={
-                <SignOut width={24} height={24} fill={COLORS.lightBlue} />
-              }
-              title={route?.params?.headerTitle}
-              onPressButtonRight={handleSignOut}
-              onPressButtonLeft={handleSettingsModalVisible}
-            />
-          ),
+          headerShown: false,
+          // header: ({route}: any) => (
+          //   <Header
+          //     buttonLeft={<SettingsIcon width={20} height={20} />}
+          //     buttonRight={
+          //       <SignOut width={24} height={24} fill={COLORS.lightBlue} />
+          //     }
+          //     title={route?.params?.headerTitle}
+          //     onPressButtonRight={handleSignOut}
+          //     onPressButtonLeft={handleSettingsModalVisible}
+          //   />
+          // ),
         }}
       />
     </Stack.Navigator>

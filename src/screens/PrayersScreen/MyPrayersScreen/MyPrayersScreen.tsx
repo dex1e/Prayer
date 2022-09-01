@@ -1,24 +1,13 @@
 import React, {FC} from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {COLORS} from '~assets';
-import {ModalSettings} from '~components';
 import {InputWithIcon} from '~components/ui';
 
-interface MyPrayersScreenProps {
-  isSettingsModalVisible: boolean;
-  onCloseSettingsModalVisible: () => void;
-}
+interface MyPrayersScreenProps {}
 
-export const MyPrayersScreen: FC<MyPrayersScreenProps> = ({
-  isSettingsModalVisible,
-  onCloseSettingsModalVisible,
-}) => {
+export const MyPrayersScreen: FC<MyPrayersScreenProps> = ({}) => {
   return (
     <ScrollView style={styles.container}>
-      <ModalSettings
-        visible={isSettingsModalVisible}
-        onRequestClose={onCloseSettingsModalVisible}
-      />
       <View style={styles.inputItem}>
         <InputWithIcon placeholder="Add a prayer..." />
       </View>

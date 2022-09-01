@@ -33,6 +33,28 @@ export const columnsSlice = createSlice({
     addColumnFailed: (state, _action) => {
       state.addColumnFetchStatus = FetchStatus.REJECTED;
     },
+
+    updateColumn: (state, _action) => {
+      state.updateColumnFetchStatus = FetchStatus.PENDING;
+    },
+
+    updateColumnSucces: (state, action: PayloadAction<IColumn>) => {
+      const {id, title, description} = action.payload;
+
+      state.columns = state.columns.map(column => {
+        if (column.id === id) {
+          column.title = title;
+          column.description = description;
+        }
+        return column;
+      });
+
+      state.updateColumnFetchStatus = FetchStatus.FULFILLED;
+    },
+
+    updateColumnFailed: state => {
+      state.updateColumnFetchStatus = FetchStatus.REJECTED;
+    },
   },
 });
 
@@ -43,6 +65,9 @@ export const {
   addColumn,
   addColumnSucces,
   addColumnFailed,
+  updateColumn,
+  updateColumnSucces,
+  updateColumnFailed,
 } = columnsSlice.actions;
 
 export default columnsSlice.reducer;

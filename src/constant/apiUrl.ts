@@ -3,4 +3,5 @@ export const API_URL = {
   SIGN_IN: 'auth/sign-in',
   GET_COLUMNS: 'columns',
   ADD_COLUMN: 'columns',
+  UPDATE_COLUMN: (id = ':id'): string => `columns/${id}`,
 };

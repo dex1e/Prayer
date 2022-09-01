@@ -19,7 +19,7 @@ export const Column: FC<ColumnProps> = ({column}) => {
       onPress={() =>
         navigation.navigate({
           name: 'Prayers',
-          params: {headerTitle: column?.title},
+          params: {headerTitle: column?.title, column},
         })
       }>
       <Text style={styles.columnTitle}>{column?.title}</Text>

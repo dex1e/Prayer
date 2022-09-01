@@ -9,8 +9,6 @@ export enum AsyncStorageVariables {
   USER = 'user',
 }
 
-export type Maybe<T> = T | null;
-
 export interface IUser {
   token: string;
   email: string;
@@ -19,8 +17,8 @@ export interface IUser {
 }
 
 export interface IColumn {
-  id: Maybe<number>;
+  id: number;
   title: string;
   description: string;
-  userId: Maybe<number>;
+  userId: number;
 }

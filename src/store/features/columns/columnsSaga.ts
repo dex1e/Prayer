@@ -2,7 +2,7 @@ import {PayloadAction} from '@reduxjs/toolkit';
 import {call, put, takeLatest} from 'redux-saga/effects';
 import {AsyncStorageService} from '~services';
 import {IColumn} from '~types';
-import {getColumnsApi, createNewColumn} from './columnsApi';
+import {getColumnsApi, createNewColumn, updateColumnApi} from './columnsApi';
 
 import {
   addColumn,
@@ -11,11 +11,15 @@ import {
   getColumns,
   getColumnsFailed,
   getColumnsSucces,
+  updateColumn,
+  updateColumnFailed,
+  updateColumnSucces,
 } from './columnsSlice';
 
 export function* columnsWatcherSaga() {
   yield takeLatest(getColumns.type, handleGetColumns);
   yield takeLatest(addColumn.type, handleAddColumn);
+  yield takeLatest(updateColumn.type, handleUpdateColumn);
 }
 
 export function* handleGetColumns() {
@@ -38,5 +42,18 @@ export function* handleAddColumn(action: PayloadAction<IColumn>) {
     yield put(addColumnSucces(data));
   } catch (error) {
     yield put(addColumnFailed(error));
+  }
+}
+
+export function* handleUpdateColumn(action: PayloadAction<IColumn>) {
+  const {id, title, description} = action.payload;
+
+  try {
+    const {data} = yield call(() => updateColumnApi(id, title, description));
+
+    yield put(updateColumnSucces(data));
+  } catch (error) {
+    yield put(updateColumnFailed());
+    console.log(error);
   }
 }

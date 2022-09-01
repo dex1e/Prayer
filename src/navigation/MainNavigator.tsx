@@ -20,6 +20,10 @@ export const MainNavigator = () => {
     setIsAddColumnModalVisible(true);
   };
 
+  const handleCloseAddColumnModal = () => {
+    setIsAddColumnModalVisible(false);
+  };
+
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -27,7 +31,7 @@ export const MainNavigator = () => {
         children={() => (
           <MyDeskScreen
             isAddColumnModalVisible={isAddColumnModalVisible}
-            setIsAddColumnModalVisible={setIsAddColumnModalVisible}
+            onCloseAddColumnModal={handleCloseAddColumnModal}
           />
         )}
         options={{

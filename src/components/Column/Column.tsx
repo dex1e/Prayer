@@ -1,4 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
+
 import React from 'react';
 import {FC} from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
@@ -10,7 +11,7 @@ interface ColumnProps {
 }
 
 export const Column: FC<ColumnProps> = ({column}) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
 
   return (
     <TouchableOpacity
@@ -19,7 +20,7 @@ export const Column: FC<ColumnProps> = ({column}) => {
         navigation.navigate({
           name: 'Prayers',
           params: {headerTitle: column?.title},
-        } as never)
+        })
       }>
       <Text style={styles.columnTitle}>{column?.title}</Text>
     </TouchableOpacity>

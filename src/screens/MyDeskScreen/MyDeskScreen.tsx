@@ -10,12 +10,12 @@ import {FetchStatus} from '~types';
 
 interface MyDeskScreenProps {
   isAddColumnModalVisible: boolean;
-  setIsAddColumnModalVisible: (isAddColumnModalVisible: boolean) => void;
+  onCloseAddColumnModal: () => void;
 }
 
 export const MyDeskScreen: FC<MyDeskScreenProps> = ({
   isAddColumnModalVisible,
-  setIsAddColumnModalVisible,
+  onCloseAddColumnModal,
 }) => {
   const columns = useAppSelector(state => state.columns.columns);
   const getColumnsFetchStatus = useAppSelector(
@@ -38,7 +38,7 @@ export const MyDeskScreen: FC<MyDeskScreenProps> = ({
     <ScrollView style={styles.container}>
       <ModalAddColumn
         visible={isAddColumnModalVisible}
-        onRequestClose={() => setIsAddColumnModalVisible(false)}
+        onRequestClose={onCloseAddColumnModal}
       />
 
       <View style={styles.containerColumns}>

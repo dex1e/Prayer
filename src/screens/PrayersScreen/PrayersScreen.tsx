@@ -1,12 +1,20 @@
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import React from 'react';
+import React, {FC} from 'react';
 import {COLORS} from '~assets';
 import {MyPrayersScreen} from './MyPrayersScreen';
 import {SubscribedScreen} from './SubscribedScreen';
 
+interface PrayersScreenProps {
+  isSettingsModalVisible: boolean;
+  onCloseSettingsModalVisible: () => void;
+}
+
 const Tab = createMaterialTopTabNavigator();
 
-export const PrayersScreen = () => {
+export const PrayersScreen: FC<PrayersScreenProps> = ({
+  isSettingsModalVisible,
+  onCloseSettingsModalVisible,
+}) => {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -14,7 +22,15 @@ export const PrayersScreen = () => {
         tabBarInactiveTintColor: COLORS.lightGray,
         tabBarPressColor: 'transparent',
       }}>
-      <Tab.Screen name="My Prayers" component={MyPrayersScreen} />
+      <Tab.Screen
+        name="My Prayers"
+        children={() => (
+          <MyPrayersScreen
+            isSettingsModalVisible={isSettingsModalVisible}
+            onCloseSettingsModalVisible={onCloseSettingsModalVisible}
+          />
+        )}
+      />
       <Tab.Screen name="Subscribed" component={SubscribedScreen} />
     </Tab.Navigator>
   );

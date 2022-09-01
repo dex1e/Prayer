@@ -13,11 +13,20 @@ const Stack = createNativeStackNavigator();
 export const MainNavigator = () => {
   const dispatch = useAppDispatch();
   const [isAddColumnModalVisible, setIsAddColumnModalVisible] = useState(false);
+  const [isSettingsModalVisible, setIsSettingsModalVisible] = useState(false);
 
   const handleSignOut = () => dispatch(signOutUser());
 
   const handleAddColumnModalVisible = () => {
     setIsAddColumnModalVisible(true);
+  };
+
+  const handleSettingsModalVisible = () => {
+    setIsSettingsModalVisible(true);
+  };
+
+  const handleCloseSettingsModalVisible = () => {
+    setIsSettingsModalVisible(false);
   };
 
   return (
@@ -49,7 +58,12 @@ export const MainNavigator = () => {
 
       <Stack.Screen
         name="Prayers"
-        children={() => <PrayersScreen />}
+        children={() => (
+          <PrayersScreen
+            isSettingsModalVisible={isSettingsModalVisible}
+            onCloseSettingsModalVisible={handleCloseSettingsModalVisible}
+          />
+        )}
         options={{
           headerShown: true,
           header: ({route}: any) => (
@@ -60,6 +74,7 @@ export const MainNavigator = () => {
               }
               title={route?.params?.headerTitle}
               onPressButtonRight={handleSignOut}
+              onPressButtonLeft={handleSettingsModalVisible}
             />
           ),
         }}

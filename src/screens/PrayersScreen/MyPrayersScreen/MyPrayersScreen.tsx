@@ -1,10 +1,24 @@
-import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React, {FC} from 'react';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {COLORS} from '~assets';
+import {ModalSettings} from '~components';
 import {InputWithIcon} from '~components/ui';
 
-export const MyPrayersScreen = () => {
+interface MyPrayersScreenProps {
+  isSettingsModalVisible: boolean;
+  onCloseSettingsModalVisible: () => void;
+}
+
+export const MyPrayersScreen: FC<MyPrayersScreenProps> = ({
+  isSettingsModalVisible,
+  onCloseSettingsModalVisible,
+}) => {
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
+      <ModalSettings
+        visible={isSettingsModalVisible}
+        onRequestClose={onCloseSettingsModalVisible}
+      />
       <View style={styles.inputItem}>
         <InputWithIcon placeholder="Add a prayer..." />
       </View>
@@ -12,13 +26,15 @@ export const MyPrayersScreen = () => {
       <View>
         <Text>sds</Text>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    width: '100%',
     padding: 15,
+    backgroundColor: COLORS.white,
   },
 
   inputItem: {

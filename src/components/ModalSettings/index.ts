@@ -1,0 +1,1 @@
+export {ModalSettings} from './ModalSettings';

@@ -3,7 +3,7 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {COLORS, FONT_FAMILY} from '~assets';
 
 interface HeaderProps {
-  title: string;
+  title?: string;
   buttonLeft?: ReactNode;
   buttonRight?: ReactNode;
   isDividerActive?: boolean;

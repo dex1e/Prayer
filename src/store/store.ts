@@ -6,7 +6,7 @@ import {rootWatcher} from './features';
 
 const reducers = combineReducers({
   auth: authReducer,
-  columns: columnsReducer,
+  columnsData: columnsReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();

@@ -3,7 +3,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {FetchStatus, IColumn} from '~types';
 
 export const columnsSlice = createSlice({
-  name: 'columns',
+  name: 'columnsData',
   initialState,
 
   reducers: {

@@ -1,3 +1,8 @@
+export enum ScreenName {
+  COLUMN = 'Column',
+  MYDESK = 'MyDesk',
+}
+
 export enum FetchStatus {
   IDLE = 'idle',
   PENDING = 'pending',

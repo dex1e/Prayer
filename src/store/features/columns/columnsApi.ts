@@ -15,9 +15,5 @@ export const updateColumnApi = async (
   description: string,
 ) => {
   console.log(id, title, description, 'API = id, title, description');
-  return ApiService.put(
-    API_URL.UPDATE_COLUMN(String(id)),
-    {title, description},
-    {id},
-  );
+  return ApiService.put(API_URL.UPDATE_COLUMN(id), {title, description}, {id});
 };

@@ -1,0 +1,1 @@
+export {CheckboxIcon} from './CheckboxIcon';

@@ -23,10 +23,10 @@ export const MyDeskScreen = ({navigation}: MyDeskScreenProps) => {
   );
   const [isAddColumnModalVisible, setIsAddColumnModalVisible] = useState(false);
   const dispatch = useAppDispatch();
+
   const handleAddColumnModalVisible = () => {
     setIsAddColumnModalVisible(true);
   };
-
   const handleCloseAddColumnModal = () => {
     setIsAddColumnModalVisible(false);
   };

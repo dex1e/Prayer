@@ -10,7 +10,12 @@ interface InputProps extends TextInputProps {
 export const Input: FC<InputProps> = ({placeholder, ...props}) => {
   return (
     <View style={styles.inputContainer}>
-      <TextInput {...props} style={styles.input} placeholder={placeholder} />
+      <TextInput
+        {...props}
+        style={styles.input}
+        placeholder={placeholder}
+        placeholderTextColor={COLORS.secondaryGray}
+      />
     </View>
   );
 };
@@ -26,7 +31,7 @@ const styles = StyleSheet.create({
 
   input: {
     width: '100%',
-    color: COLORS.secondaryGray,
+    color: COLORS.primary,
     fontSize: 17,
     lineHeight: 20,
     fontFamily: FONT_FAMILY.primary,

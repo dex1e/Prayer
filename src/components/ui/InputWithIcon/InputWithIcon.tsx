@@ -1,19 +1,37 @@
 import React, {FC} from 'react';
-import {StyleSheet, TextInput, TouchableOpacity, View} from 'react-native';
+import {
+  ActivityIndicator,
+  StyleSheet,
+  TextInput,
+  TextInputProps,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {COLORS, FONT_FAMILY} from '~assets';
 import {PlusIcon} from '~components/icons';
 
-interface InputWithIconProps {
+interface InputWithIconProps extends TextInputProps {
   placeholder: string;
+  isLoading?: boolean;
+  onPress?: () => void;
 }
 
-export const InputWithIcon: FC<InputWithIconProps> = ({placeholder}) => {
+export const InputWithIcon: FC<InputWithIconProps> = ({
+  placeholder,
+  isLoading,
+  onPress,
+  ...props
+}) => {
   return (
     <View style={styles.inputContainer}>
-      <TouchableOpacity style={styles.buttonIcon}>
-        <PlusIcon width={24} height={24} fill={COLORS.lightBlue} />
+      <TouchableOpacity style={styles.buttonIcon} onPress={onPress}>
+        {isLoading ? (
+          <ActivityIndicator size="small" color={COLORS.lightBlue} />
+        ) : (
+          <PlusIcon width={24} height={24} fill={COLORS.lightBlue} />
+        )}
       </TouchableOpacity>
-      <TextInput style={styles.input} placeholder={placeholder} />
+      <TextInput {...props} style={styles.input} placeholder={placeholder} />
     </View>
   );
 };

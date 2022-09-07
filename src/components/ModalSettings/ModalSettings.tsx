@@ -4,14 +4,15 @@ import {StyleSheet, Text, View} from 'react-native';
 import {COLORS, FONT_FAMILY} from '~assets';
 import {CloseIcon} from '~components/icons';
 import {ButtonUI, Header, Input, ModalUi} from '~components/ui';
-import {updateColumn} from '~store/features/columns';
-import {useAppDispatch} from '~store/hooks';
-import {IColumn} from '~types';
+import {deleteColumn, updateColumn} from '~store/features/columns';
+import {useAppDispatch, useAppSelector} from '~store/hooks';
+import {FetchStatus, IColumn} from '~types';
 
 interface ModalSettingsProps {
   visible: boolean;
   column?: IColumn;
   onRequestClose: () => void;
+  onNavigate: () => void;
 }
 
 interface ModalSettingsValues {
@@ -23,7 +24,11 @@ export const ModalSettings: FC<ModalSettingsProps> = ({
   visible,
   onRequestClose,
   column,
+  onNavigate,
 }) => {
+  const updateColumnFetchStatus = useAppSelector(
+    state => state.columnsData.updateColumnFetchStatus,
+  );
   const dispatch = useAppDispatch();
 
   const {
@@ -39,11 +44,20 @@ export const ModalSettings: FC<ModalSettingsProps> = ({
 
   const onSubmit = ({title, description}: ModalSettingsValues) => {
     const id = column?.id;
-    console.log(id, title, description);
 
     dispatch(updateColumn({id, title, description}));
     onRequestClose();
   };
+
+  const handleDeleteColumn = () => {
+    const id = column?.id;
+
+    dispatch(deleteColumn(id));
+    onRequestClose();
+    onNavigate();
+  };
+
+  const isLoading = updateColumnFetchStatus === FetchStatus.PENDING;
 
   return (
     <ModalUi visible={visible} onRequestClose={onRequestClose}>
@@ -55,17 +69,19 @@ export const ModalSettings: FC<ModalSettingsProps> = ({
       />
 
       <View style={styles.container}>
+        <Text style={styles.inputTitle}>Title</Text>
+
         <View style={styles.inputItem}>
           <Controller
             control={control}
             rules={{
               required: true,
             }}
-            render={({field: {onChange, onBlur, value}}) => (
+            render={({field: {onChange, onBlur}}) => (
               <Input
                 onChangeText={onChange}
                 onBlur={onBlur}
-                value={value}
+                defaultValue={column?.title}
                 placeholder="Title"
               />
             )}
@@ -77,17 +93,19 @@ export const ModalSettings: FC<ModalSettingsProps> = ({
           )}
         </View>
 
+        <Text style={styles.inputTitle}>Description</Text>
+
         <View style={styles.inputItem}>
           <Controller
             control={control}
             rules={{
-              required: true,
+              required: false,
             }}
-            render={({field: {onChange, onBlur, value}}) => (
+            render={({field: {onChange, onBlur}}) => (
               <Input
                 onChangeText={onChange}
                 onBlur={onBlur}
-                value={value}
+                defaultValue={column?.description}
                 placeholder="Description"
               />
             )}
@@ -99,11 +117,15 @@ export const ModalSettings: FC<ModalSettingsProps> = ({
           )}
         </View>
 
-        <ButtonUI
-          title="Update column"
-          // isLoading={isLoading}
-          onPress={handleSubmit(onSubmit)}
-        />
+        <View style={styles.buttonUpdate}>
+          <ButtonUI
+            title="Update column"
+            isLoading={isLoading}
+            onPress={handleSubmit(onSubmit)}
+          />
+        </View>
+
+        <ButtonUI title="Delete column" isRed onPress={handleDeleteColumn} />
       </View>
     </ModalUi>
   );
@@ -116,10 +138,19 @@ const styles = StyleSheet.create({
     fontFamily: FONT_FAMILY.primary,
   },
 
+  inputTitle: {
+    fontSize: 17,
+    marginBottom: 5,
+  },
+
   inputItem: {
     width: '100%',
     paddingBottom: 20,
   },
 
   errorText: {color: COLORS.red},
+
+  buttonUpdate: {
+    marginBottom: 10,
+  },
 });

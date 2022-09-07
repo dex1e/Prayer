@@ -11,12 +11,20 @@ import {COLORS, FONT_FAMILY} from '~assets';
 
 interface ButtonUIProps extends ButtonProps {
   title: string;
+  isRed?: boolean;
   isLoading?: boolean;
 }
 
-export const ButtonUI: FC<ButtonUIProps> = ({title, isLoading, ...props}) => {
+export const ButtonUI: FC<ButtonUIProps> = ({
+  title,
+  isLoading,
+  isRed,
+  ...props
+}) => {
   return (
-    <TouchableOpacity {...props} style={styles.button}>
+    <TouchableOpacity
+      {...props}
+      style={isRed ? styles.redButton : styles.button}>
       {isLoading ? (
         <ActivityIndicator size="large" color={COLORS.white} />
       ) : (
@@ -30,6 +38,13 @@ const styles = StyleSheet.create({
   button: {
     width: '100%',
     backgroundColor: COLORS.gold,
+    borderRadius: 15,
+    fontFamily: FONT_FAMILY.primary,
+  },
+
+  redButton: {
+    width: '100%',
+    backgroundColor: COLORS.lightRed,
     borderRadius: 15,
     fontFamily: FONT_FAMILY.primary,
   },

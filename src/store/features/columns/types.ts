@@ -5,5 +5,6 @@ export interface IColumnsInitialState {
   getColumnsFetchStatus: FetchStatus;
   addColumnFetchStatus: FetchStatus;
   updateColumnFetchStatus: FetchStatus;
+  deleteColumnFetchStatus: FetchStatus;
   error: string;
 }

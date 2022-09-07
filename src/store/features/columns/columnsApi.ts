@@ -14,6 +14,9 @@ export const updateColumnApi = async (
   title: string,
   description: string,
 ) => {
-  console.log(id, title, description, 'API = id, title, description');
   return ApiService.put(API_URL.UPDATE_COLUMN(id), {title, description}, {id});
+};
+
+export const deleteColumnApi = async (id: number) => {
+  return ApiService.delete(API_URL.DELETE_COLUMN(id), {id});
 };

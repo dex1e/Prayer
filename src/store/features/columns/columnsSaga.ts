@@ -2,12 +2,20 @@ import {PayloadAction} from '@reduxjs/toolkit';
 import {call, put, takeLatest} from 'redux-saga/effects';
 import {AsyncStorageService} from '~services';
 import {IColumn} from '~types';
-import {getColumnsApi, createNewColumn, updateColumnApi} from './columnsApi';
+import {
+  getColumnsApi,
+  createNewColumn,
+  updateColumnApi,
+  deleteColumnApi,
+} from './columnsApi';
 
 import {
   addColumn,
   addColumnFailed,
   addColumnSucces,
+  deleteColumn,
+  deleteColumnFailed,
+  deleteColumnSucces,
   getColumns,
   getColumnsFailed,
   getColumnsSucces,
@@ -20,6 +28,7 @@ export function* columnsWatcherSaga() {
   yield takeLatest(getColumns.type, handleGetColumns);
   yield takeLatest(addColumn.type, handleAddColumn);
   yield takeLatest(updateColumn.type, handleUpdateColumn);
+  yield takeLatest(deleteColumn.type, handleDeleteColumn);
 }
 
 export function* handleGetColumns() {
@@ -54,6 +63,19 @@ export function* handleUpdateColumn(action: PayloadAction<IColumn>) {
     yield put(updateColumnSucces(data));
   } catch (error) {
     yield put(updateColumnFailed());
+    console.log(error);
+  }
+}
+
+export function* handleDeleteColumn(action: PayloadAction<number>) {
+  try {
+    const {status} = yield call(() => deleteColumnApi(action.payload));
+
+    if (status === 200) {
+      yield put(deleteColumnSucces(action.payload));
+    }
+  } catch (error) {
+    yield put(deleteColumnFailed());
     console.log(error);
   }
 }

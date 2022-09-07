@@ -55,6 +55,22 @@ export const columnsSlice = createSlice({
     updateColumnFailed: state => {
       state.updateColumnFetchStatus = FetchStatus.REJECTED;
     },
+
+    deleteColumn: (state, _action) => {
+      state.deleteColumnFetchStatus = FetchStatus.PENDING;
+    },
+
+    deleteColumnSucces: (state, action: PayloadAction<number>) => {
+      state.columns = state.columns.filter(
+        column => column.id !== action.payload,
+      );
+
+      state.deleteColumnFetchStatus = FetchStatus.FULFILLED;
+    },
+
+    deleteColumnFailed: state => {
+      state.deleteColumnFetchStatus = FetchStatus.REJECTED;
+    },
   },
 });
 
@@ -68,6 +84,9 @@ export const {
   updateColumn,
   updateColumnSucces,
   updateColumnFailed,
+  deleteColumn,
+  deleteColumnSucces,
+  deleteColumnFailed,
 } = columnsSlice.actions;
 
 export default columnsSlice.reducer;

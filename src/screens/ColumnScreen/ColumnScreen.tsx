@@ -19,7 +19,7 @@ type ColumnScreenProps = NativeStackScreenProps<
 
 const Tab = createMaterialTopTabNavigator();
 
-export const ColumnScreen = ({route}: ColumnScreenProps) => {
+export const ColumnScreen = ({navigation, route}: ColumnScreenProps) => {
   const columns = useAppSelector(state => state.columnsData.columns);
   const dispatch = useAppDispatch();
   const [isSettingsModalVisible, setIsSettingsModalVisible] = useState(false);
@@ -37,6 +37,10 @@ export const ColumnScreen = ({route}: ColumnScreenProps) => {
 
   const handleSignOut = () => dispatch(signOutUser());
 
+  const handleNavigate = () => {
+    navigation.navigate(ScreenName.MYDESK);
+  };
+
   return (
     <>
       <Header
@@ -51,6 +55,7 @@ export const ColumnScreen = ({route}: ColumnScreenProps) => {
         visible={isSettingsModalVisible}
         column={currentColumn}
         onRequestClose={handleCloseSettingsModalVisible}
+        onNavigate={handleNavigate}
       />
 
       <Tab.Navigator
@@ -58,10 +63,17 @@ export const ColumnScreen = ({route}: ColumnScreenProps) => {
           tabBarActiveTintColor: COLORS.lightBlue,
           tabBarInactiveTintColor: COLORS.lightGray,
           tabBarPressColor: 'transparent',
+          swipeEnabled: false,
         }}>
-        <Tab.Screen name="My Prayers" children={() => <MyPrayersScreen />} />
+        <Tab.Screen
+          name={ScreenName.MYPRAYERS}
+          children={() => <MyPrayersScreen columnId={currentColumn?.id} />}
+        />
 
-        <Tab.Screen name="Subscribed" component={SubscribedScreen} />
+        <Tab.Screen
+          name={ScreenName.SUBSCRIBED}
+          children={() => <SubscribedScreen />}
+        />
       </Tab.Navigator>
     </>
   );

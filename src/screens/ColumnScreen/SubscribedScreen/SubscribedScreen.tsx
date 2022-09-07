@@ -1,10 +1,19 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {ScrollView, StyleSheet, Text} from 'react-native';
+import {COLORS} from '~assets';
 
 export const SubscribedScreen = () => {
   return (
-    <View>
+    <ScrollView style={styles.container}>
       <Text>SubscribedScreen</Text>
-    </View>
+    </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    padding: 15,
+    backgroundColor: COLORS.white,
+  },
+});

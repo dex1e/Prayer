@@ -54,14 +54,18 @@ export function* handleAddPrayer(action: PayloadAction<IPrayer>) {
 
 export function* handleDeletePrayer(action: PayloadAction<number>) {
   try {
-    const {status} = yield call(() => deletePrayersApi(action.payload));
+    const {status, response} = yield call(() =>
+      deletePrayersApi(action.payload),
+    );
 
     if (status === 200) {
       yield put(deletePrayerSucces(action.payload));
+    } else {
+      yield put(deletePrayerFailed(response.data.message));
     }
-  } catch (error) {
-    yield put(deletePrayerFailed());
-    console.log(error);
+  } catch (error: any) {
+    yield put(deletePrayerFailed(error.response.data.message));
+    console.log(error.response.data.message);
   }
 }
 

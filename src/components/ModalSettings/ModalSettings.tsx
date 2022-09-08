@@ -29,6 +29,9 @@ export const ModalSettings: FC<ModalSettingsProps> = ({
   const updateColumnFetchStatus = useAppSelector(
     state => state.columnsData.updateColumnFetchStatus,
   );
+  const deleteColumnFetchStatus = useAppSelector(
+    state => state.columnsData.deleteColumnFetchStatus,
+  );
   const dispatch = useAppDispatch();
 
   const {
@@ -57,7 +60,8 @@ export const ModalSettings: FC<ModalSettingsProps> = ({
     onNavigate();
   };
 
-  const isLoading = updateColumnFetchStatus === FetchStatus.PENDING;
+  const isLoadingUpdate = updateColumnFetchStatus === FetchStatus.PENDING;
+  const isLoadingDelete = deleteColumnFetchStatus === FetchStatus.PENDING;
 
   return (
     <ModalUi visible={visible} onRequestClose={onRequestClose}>
@@ -120,12 +124,17 @@ export const ModalSettings: FC<ModalSettingsProps> = ({
         <View style={styles.buttonUpdate}>
           <ButtonUI
             title="Update column"
-            isLoading={isLoading}
+            isLoading={isLoadingUpdate}
             onPress={handleSubmit(onSubmit)}
           />
         </View>
 
-        <ButtonUI title="Delete column" isRed onPress={handleDeleteColumn} />
+        <ButtonUI
+          title="Delete column"
+          isRed
+          onPress={handleDeleteColumn}
+          isLoading={isLoadingDelete}
+        />
       </View>
     </ModalUi>
   );

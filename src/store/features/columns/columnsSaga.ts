@@ -69,13 +69,17 @@ export function* handleUpdateColumn(action: PayloadAction<IColumn>) {
 
 export function* handleDeleteColumn(action: PayloadAction<number>) {
   try {
-    const {status} = yield call(() => deleteColumnApi(action.payload));
+    const {status, response} = yield call(() =>
+      deleteColumnApi(action.payload),
+    );
 
     if (status === 200) {
       yield put(deleteColumnSucces(action.payload));
+    } else {
+      yield put(deleteColumnFailed(response.data.message));
     }
-  } catch (error) {
-    yield put(deleteColumnFailed());
-    console.log(error);
+  } catch (error: any) {
+    yield put(deleteColumnFailed(error.response.data.message));
+    console.log(error.response.data.message);
   }
 }

@@ -68,7 +68,7 @@ export const columnsSlice = createSlice({
       state.deleteColumnFetchStatus = FetchStatus.FULFILLED;
     },
 
-    deleteColumnFailed: state => {
+    deleteColumnFailed: (state, _action) => {
       state.deleteColumnFetchStatus = FetchStatus.REJECTED;
     },
   },

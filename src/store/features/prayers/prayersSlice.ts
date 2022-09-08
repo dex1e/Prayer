@@ -46,7 +46,7 @@ export const prayersSlice = createSlice({
       state.deletePrayerFetchStatus = FetchStatus.FULFILLED;
     },
 
-    deletePrayerFailed: state => {
+    deletePrayerFailed: (state, _action) => {
       state.deletePrayerFetchStatus = FetchStatus.REJECTED;
     },
 

@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useEffect, useMemo, useState} from 'react';
 import {Controller, useForm} from 'react-hook-form';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {COLORS} from '~assets';
@@ -39,13 +39,17 @@ export const MyPrayersScreen: FC<MyPrayersScreenProps> = ({columnId}) => {
 
   const isLoading = getPrayerFetchStatus === FetchStatus.PENDING;
 
-  const filtredPrayers = prayers.filter(
-    prayer => prayer?.columnId === columnId,
-  );
+  const filtredPrayers = useMemo(() => {
+    return prayers.filter(prayer => prayer?.columnId === columnId);
+  }, [prayers, columnId]);
 
-  const unCheckedPrayers = filtredPrayers.filter(prayer => !prayer.checked);
+  const unCheckedPrayers = useMemo(() => {
+    return filtredPrayers.filter(prayer => !prayer.checked);
+  }, [filtredPrayers]);
 
-  const checkedPrayers = filtredPrayers.filter(prayer => prayer.checked);
+  const checkedPrayers = useMemo(() => {
+    return filtredPrayers.filter(prayer => prayer.checked);
+  }, [filtredPrayers]);
 
   const addNewPrayer = ({title, description}: MyPrayersValues) => {
     const id = columnId;

@@ -1,11 +1,5 @@
 import React, {FC} from 'react';
-import {
-  Dimensions,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Dimensions, StyleSheet, Text, View} from 'react-native';
 import {
   GestureHandlerRootView,
   PanGestureHandler,
@@ -18,12 +12,13 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import {COLORS, FONT_FAMILY} from '~assets';
-import {CheckboxIcon, Line, UserIcon} from '~components/icons';
+import {Line, UserIcon} from '~components/icons';
+import {CheckBox} from '~components/ui';
 import {IPrayer} from '~types';
 
 const PRAYER_ITEM_HEIGHT = 68;
-const {width: SCREEN_WIDTH} = Dimensions.get('window');
-const TRANSLATE_X_DELETE = -SCREEN_WIDTH * 0.25;
+const {width: screenWidth} = Dimensions.get('window');
+const TRANSLATE_X_DELETE = -screenWidth * 0.25;
 
 interface MyPrayerItemProps {
   prayer: IPrayer;
@@ -48,7 +43,7 @@ export const MyPrayerItem: FC<MyPrayerItemProps> = ({
     onEnd: () => {
       const shouldBeDismissed = translateX.value < TRANSLATE_X_DELETE;
       if (shouldBeDismissed) {
-        translateX.value = withTiming(-SCREEN_WIDTH);
+        translateX.value = withTiming(-screenWidth);
         prayerHeight.value = withTiming(0);
         paddingVertical.value = withTiming(0);
         opacityHidden.value = withTiming(0, undefined, isFinished => {
@@ -97,11 +92,10 @@ export const MyPrayerItem: FC<MyPrayerItemProps> = ({
               <Line height={24} />
             </View>
 
-            <TouchableOpacity
-              style={styles.checkbox}
-              onPress={() => onCheckPrayer(prayer.id, !prayer.checked)}>
-              {prayer?.checked && <CheckboxIcon width={12} height={11} />}
-            </TouchableOpacity>
+            <CheckBox
+              checked={prayer?.checked}
+              onPress={() => onCheckPrayer(prayer.id, !prayer.checked)}
+            />
 
             <Text
               style={prayer.checked ? styles.checkedTitle : styles.title}
@@ -155,16 +149,6 @@ const styles = StyleSheet.create({
     marginRight: 5,
     color: COLORS.primary,
     textDecorationLine: 'line-through',
-  },
-
-  checkbox: {
-    width: 22,
-    height: 22,
-    borderWidth: 1,
-    borderRadius: 4,
-    borderColor: COLORS.primary,
-    padding: 5,
-    marginRight: 20,
   },
 
   line: {

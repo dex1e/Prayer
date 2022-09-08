@@ -1,6 +1,15 @@
+export enum FetchStatus {
+  IDLE = 'idle',
+  PENDING = 'pending',
+  FULFILLED = 'fulfilled',
+  REJECTED = 'rejected',
+}
+
 export enum AsyncStorageVariables {
   USER = 'user',
 }
+
+export type Maybe<T> = T | null;
 
 export interface IUser {
   token: string;
@@ -9,9 +18,9 @@ export interface IUser {
   password: string;
 }
 
-export enum FetchStatus {
-  IDLE = 'idle',
-  PENDING = 'pending',
-  FULFILLED = 'fulfilled',
-  REJECTED = 'rejected',
+export interface IColumn {
+  id: Maybe<number>;
+  title: string;
+  description: string;
+  userId: Maybe<number>;
 }

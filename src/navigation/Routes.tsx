@@ -24,7 +24,7 @@ export const Routes = () => {
   }, [dispatch]);
 
   if (isLoading) {
-    return <ActivityIndicator size="large" color={COLORS.black} />;
+    return <ActivityIndicator size="large" color={COLORS.primary} />;
   }
 
   return (

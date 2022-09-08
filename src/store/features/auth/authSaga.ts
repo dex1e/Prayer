@@ -12,13 +12,17 @@ import {
   registerUser,
   registerUserFailed,
   registerUserSucces,
+  signOutUser,
+  signOutUserFailed,
+  signOutUserSucces,
 } from './authSlice';
 import {AsyncStorageService} from '~services';
 
-export function* watcherSaga() {
+export function* userWatcherSaga() {
   yield takeLatest(registerUser.type, handleRegisterUser);
   yield takeLatest(loginUser.type, handleLoginUser);
   yield takeLatest(getToken.type, handleGetToken);
+  yield takeLatest(signOutUser.type, handleSignOutUser);
 }
 
 export function* handleGetToken() {
@@ -61,5 +65,15 @@ export function* handleLoginUser(action: PayloadAction<IUser>) {
     AsyncStorageService.setData(AsyncStorageVariables.USER, data);
   } catch (error) {
     yield put(loginUserFailed(error));
+  }
+}
+
+export function* handleSignOutUser() {
+  try {
+    yield call(AsyncStorageService.removeData, AsyncStorageVariables.USER);
+
+    yield put(signOutUserSucces());
+  } catch (error) {
+    yield put(signOutUserFailed(error));
   }
 }

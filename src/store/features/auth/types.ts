@@ -5,5 +5,6 @@ export interface IUserInitialState {
   registrationFetchStatus: FetchStatus;
   loginFetchStatus: FetchStatus;
   getTokenFetchStatus: FetchStatus;
+  signOutFetchStatus: FetchStatus;
   error: string;
 }

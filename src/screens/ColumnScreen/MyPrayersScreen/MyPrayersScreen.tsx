@@ -1,9 +1,13 @@
+import {useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
 import React, {FC, useEffect, useMemo, useState} from 'react';
 import {Controller, useForm} from 'react-hook-form';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {COLORS} from '~assets';
 import {MyPrayerItem} from '~components';
 import {ButtonUI, InputWithIcon} from '~components/ui';
+import {MainStackParamList} from '~navigation/MainNavigator';
+
 import {
   addPrayer,
   deletePrayer,
@@ -11,7 +15,12 @@ import {
   updatePrayer,
 } from '~store/features/prayers';
 import {useAppDispatch, useAppSelector} from '~store/hooks';
-import {FetchStatus} from '~types';
+import {FetchStatus, ScreenName} from '~types';
+
+type MyPrayersNavigationProps = StackNavigationProp<
+  MainStackParamList,
+  ScreenName.MYPRAYERS
+>;
 
 interface MyPrayersScreenProps {
   columnId?: number;
@@ -29,6 +38,7 @@ export const MyPrayersScreen: FC<MyPrayersScreenProps> = ({columnId}) => {
     state => state.prayersData.getPrayersFetchStatus,
   );
   const dispatch = useAppDispatch();
+  const navigation = useNavigation<MyPrayersNavigationProps>();
 
   const {control, handleSubmit, reset} = useForm({
     defaultValues: {
@@ -105,6 +115,12 @@ export const MyPrayersScreen: FC<MyPrayersScreenProps> = ({columnId}) => {
                   prayer={prayer}
                   onDeletePrayer={handleDeletePrayer}
                   onCheckPrayer={handleCheckPrayer}
+                  onNavigate={() =>
+                    navigation.navigate({
+                      name: ScreenName.PRAYER,
+                      params: {prayerId: prayer?.id},
+                    })
+                  }
                 />
               );
             })}
@@ -134,6 +150,12 @@ export const MyPrayersScreen: FC<MyPrayersScreenProps> = ({columnId}) => {
                     prayer={checkedPrayer}
                     onDeletePrayer={handleDeletePrayer}
                     onCheckPrayer={handleCheckPrayer}
+                    onNavigate={() =>
+                      navigation.navigate({
+                        name: ScreenName.PRAYER,
+                        params: {prayerId: checkedPrayer?.id},
+                      })
+                    }
                   />
                 );
               })}

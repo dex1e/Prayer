@@ -1,0 +1,1 @@
+export {PrayerScreen} from './PrayerScreen';

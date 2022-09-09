@@ -3,6 +3,7 @@ export enum ScreenName {
   MYDESK = 'MyDesk',
   MYPRAYERS = 'MyPrayers',
   SUBSCRIBED = 'Subscribed',
+  PRAYER = 'Prayer',
 }
 
 export enum FetchStatus {

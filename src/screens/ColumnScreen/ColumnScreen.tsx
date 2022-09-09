@@ -17,7 +17,7 @@ type ColumnScreenProps = NativeStackScreenProps<
   ScreenName.COLUMN
 >;
 
-const Tab = createMaterialTopTabNavigator();
+const Tab = createMaterialTopTabNavigator<MainStackParamList>();
 
 export const ColumnScreen = ({navigation, route}: ColumnScreenProps) => {
   const columns = useAppSelector(state => state.columnsData.columns);

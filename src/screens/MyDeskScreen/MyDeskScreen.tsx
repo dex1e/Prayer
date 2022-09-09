@@ -63,7 +63,7 @@ export const MyDeskScreen = ({navigation}: MyDeskScreenProps) => {
           {columns?.map(column => {
             return (
               <MyDeskItem
-                key={column?.id}
+                key={column.id}
                 column={column}
                 onClick={() =>
                   navigation.navigate({

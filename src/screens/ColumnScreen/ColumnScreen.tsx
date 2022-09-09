@@ -2,7 +2,8 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useState} from 'react';
 import {COLORS} from '~assets';
-import {ModalSettings} from '~components';
+import {ModalColumnSettings} from '~components';
+
 import {SettingsIcon, SignOut} from '~components/icons';
 import {Header} from '~components/ui';
 import {MainStackParamList} from '~navigation/MainNavigator';
@@ -37,10 +38,6 @@ export const ColumnScreen = ({navigation, route}: ColumnScreenProps) => {
 
   const handleSignOut = () => dispatch(signOutUser());
 
-  const handleNavigate = () => {
-    navigation.navigate(ScreenName.MYDESK);
-  };
-
   return (
     <>
       <Header
@@ -51,11 +48,11 @@ export const ColumnScreen = ({navigation, route}: ColumnScreenProps) => {
         onPressButtonLeft={handleSettingsModalVisible}
       />
 
-      <ModalSettings
+      <ModalColumnSettings
         visible={isSettingsModalVisible}
         column={currentColumn}
         onRequestClose={handleCloseSettingsModalVisible}
-        onNavigate={handleNavigate}
+        onClose={() => navigation.navigate(ScreenName.MYDESK)}
       />
 
       <Tab.Navigator

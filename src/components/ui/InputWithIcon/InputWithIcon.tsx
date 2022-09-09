@@ -20,6 +20,7 @@ export const InputWithIcon: FC<InputWithIconProps> = ({
   placeholder,
   isLoading,
   onPress,
+
   ...props
 }) => {
   return (

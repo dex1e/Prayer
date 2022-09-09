@@ -2,7 +2,13 @@ import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import React, {FC, useEffect, useMemo, useState} from 'react';
 import {Controller, useForm} from 'react-hook-form';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {
+  ActivityIndicator,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import {COLORS} from '~assets';
 import {MyPrayerItem} from '~components';
 import {ButtonUI, InputWithIcon} from '~components/ui';
@@ -34,8 +40,11 @@ interface MyPrayersValues {
 export const MyPrayersScreen: FC<MyPrayersScreenProps> = ({columnId}) => {
   const [isOpenedCheckedPrayers, setIsOpenedCheckedPrayers] = useState(false);
   const prayers = useAppSelector(state => state.prayersData.prayers);
-  const getPrayerFetchStatus = useAppSelector(
+  const getPrayersFetchStatus = useAppSelector(
     state => state.prayersData.getPrayersFetchStatus,
+  );
+  const addPrayerFetchStatus = useAppSelector(
+    state => state.prayersData.addPrayerFetchStatus,
   );
   const dispatch = useAppDispatch();
   const navigation = useNavigation<MyPrayersNavigationProps>();
@@ -47,7 +56,8 @@ export const MyPrayersScreen: FC<MyPrayersScreenProps> = ({columnId}) => {
     },
   });
 
-  const isLoading = getPrayerFetchStatus === FetchStatus.PENDING;
+  const isLoadingAddPrayer = addPrayerFetchStatus === FetchStatus.PENDING;
+  const isLoadingGetPrayers = getPrayersFetchStatus === FetchStatus.PENDING;
 
   const filtredPrayers = useMemo(() => {
     return prayers.filter(prayer => prayer?.columnId === columnId);
@@ -72,9 +82,9 @@ export const MyPrayersScreen: FC<MyPrayersScreenProps> = ({columnId}) => {
     reset();
   };
 
-  const handleDeletePrayer = (id: number) => {
+  function handleDeletePrayer(id: number) {
     dispatch(deletePrayer(id));
-  };
+  }
 
   const handleCheckPrayer = (id: number, checked: boolean) => {
     dispatch(updatePrayer({id, checked}));
@@ -83,6 +93,10 @@ export const MyPrayersScreen: FC<MyPrayersScreenProps> = ({columnId}) => {
   useEffect(() => {
     dispatch(getPrayers());
   }, [dispatch]);
+
+  if (isLoadingGetPrayers) {
+    return <ActivityIndicator size="large" color={COLORS.primary} />;
+  }
 
   return (
     <ScrollView style={styles.container}>
@@ -98,8 +112,8 @@ export const MyPrayersScreen: FC<MyPrayersScreenProps> = ({columnId}) => {
               onBlur={onBlur}
               value={value}
               placeholder="Add a prayer..."
+              isLoading={isLoadingAddPrayer}
               onPress={onSubmit}
-              isLoading={isLoading}
             />
           )}
           name="title"
@@ -111,7 +125,7 @@ export const MyPrayersScreen: FC<MyPrayersScreenProps> = ({columnId}) => {
             {unCheckedPrayers?.map(prayer => {
               return (
                 <MyPrayerItem
-                  key={prayer?.id}
+                  key={prayer.id}
                   prayer={prayer}
                   onDeletePrayer={handleDeletePrayer}
                   onCheckPrayer={handleCheckPrayer}

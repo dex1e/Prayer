@@ -8,23 +8,23 @@ import {deleteColumn, updateColumn} from '~store/features/columns';
 import {useAppDispatch, useAppSelector} from '~store/hooks';
 import {FetchStatus, IColumn} from '~types';
 
-interface ModalSettingsProps {
+interface ModalColumnSettingsProps {
   visible: boolean;
   column?: IColumn;
   onRequestClose: () => void;
-  onNavigate: () => void;
+  onClose: () => void;
 }
 
-interface ModalSettingsValues {
+interface ModalColumnSettingsValues {
   title: string;
   description: string;
 }
 
-export const ModalSettings: FC<ModalSettingsProps> = ({
+export const ModalColumnSettings: FC<ModalColumnSettingsProps> = ({
   visible,
   onRequestClose,
   column,
-  onNavigate,
+  onClose,
 }) => {
   const updateColumnFetchStatus = useAppSelector(
     state => state.columnsData.updateColumnFetchStatus,
@@ -45,7 +45,7 @@ export const ModalSettings: FC<ModalSettingsProps> = ({
     },
   });
 
-  const onSubmit = ({title, description}: ModalSettingsValues) => {
+  const onSubmit = ({title, description}: ModalColumnSettingsValues) => {
     const id = column?.id;
 
     dispatch(updateColumn({id, title, description}));
@@ -57,7 +57,7 @@ export const ModalSettings: FC<ModalSettingsProps> = ({
 
     dispatch(deleteColumn(id));
     onRequestClose();
-    onNavigate();
+    onClose();
   };
 
   const isLoadingUpdate = updateColumnFetchStatus === FetchStatus.PENDING;

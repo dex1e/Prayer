@@ -6,6 +6,7 @@ import {
   PanGestureHandlerGestureEvent,
 } from 'react-native-gesture-handler';
 import Animated, {
+  runOnJS,
   useAnimatedGestureHandler,
   useAnimatedStyle,
   useSharedValue,
@@ -22,7 +23,7 @@ const TRANSLATE_X_DELETE = -screenWidth * 0.25;
 
 interface MyPrayerItemProps {
   prayer: IPrayer;
-  onDeletePrayer?: (id: number) => void;
+  onDeletePrayer: (id: number) => void;
   onCheckPrayer: (id: number, checked: boolean) => void;
 }
 
@@ -47,8 +48,8 @@ export const MyPrayerItem: FC<MyPrayerItemProps> = ({
         prayerHeight.value = withTiming(0);
         paddingVertical.value = withTiming(0);
         opacityHidden.value = withTiming(0, undefined, isFinished => {
-          if (isFinished && onDeletePrayer) {
-            onDeletePrayer?.(prayer?.id);
+          if (isFinished) {
+            runOnJS(onDeletePrayer)(prayer.id);
           }
         });
       } else {
@@ -109,7 +110,7 @@ export const MyPrayerItem: FC<MyPrayerItemProps> = ({
             </View>
 
             <Text style={styles.countComments}>
-              {prayer?.commentsIds?.length}
+              {prayer?.commentsIds?.length || 0}
             </Text>
           </Animated.View>
         </PanGestureHandler>

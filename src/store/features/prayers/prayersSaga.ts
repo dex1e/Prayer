@@ -7,7 +7,7 @@ import {
   createNewPrayer,
   deletePrayersApi,
   getPrayersApi,
-  updatePrayerApi,
+  updatePrayerCheckedApi,
 } from './prayersApi';
 
 import {
@@ -19,16 +19,16 @@ import {
   deletePrayerSucces,
   deletePrayerFailed,
   deletePrayer,
-  updatePrayerSucces,
-  updatePrayerFailed,
-  updatePrayer,
+  updatePrayerChecked,
+  updatePrayerCheckedSucces,
+  updatePrayerCheckedFailed,
 } from './prayersSlice';
 
 export function* prayersWatcherSaga() {
   yield takeLatest(getPrayers.type, handleGetPrayers);
   yield takeLatest(addPrayer.type, handleAddPrayer);
   yield takeLatest(deletePrayer.type, handleDeletePrayer);
-  yield takeLatest(updatePrayer.type, handleUpdatePrayer);
+  yield takeLatest(updatePrayerChecked.type, handleUpdateCheckedPrayer);
 }
 
 export function* handleGetPrayers() {
@@ -69,15 +69,15 @@ export function* handleDeletePrayer(action: PayloadAction<number>) {
   }
 }
 
-export function* handleUpdatePrayer(action: PayloadAction<IPrayer>) {
+export function* handleUpdateCheckedPrayer(action: PayloadAction<IPrayer>) {
   const {id, checked} = action.payload;
 
   try {
-    const {data} = yield call(() => updatePrayerApi(id, checked));
+    const {data} = yield call(() => updatePrayerCheckedApi(id, checked));
 
-    yield put(updatePrayerSucces(data));
+    yield put(updatePrayerCheckedSucces(data));
   } catch (error) {
-    yield put(updatePrayerFailed());
+    yield put(updatePrayerCheckedFailed());
     console.log(error);
   }
 }

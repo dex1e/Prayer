@@ -11,8 +11,8 @@ import {FetchStatus, IColumn} from '~types';
 interface ModalColumnSettingsProps {
   visible: boolean;
   column?: IColumn;
-  onRequestClose: () => void;
   onClose: () => void;
+  onNavigateToMyDesk: () => void;
 }
 
 interface ModalColumnSettingsValues {
@@ -22,9 +22,9 @@ interface ModalColumnSettingsValues {
 
 export const ModalColumnSettings: FC<ModalColumnSettingsProps> = ({
   visible,
-  onRequestClose,
-  column,
   onClose,
+  column,
+  onNavigateToMyDesk,
 }) => {
   const updateColumnFetchStatus = useAppSelector(
     state => state.columnsData.updateColumnFetchStatus,
@@ -49,27 +49,27 @@ export const ModalColumnSettings: FC<ModalColumnSettingsProps> = ({
     const id = column?.id;
 
     dispatch(updateColumn({id, title, description}));
-    onRequestClose();
+    onClose();
   };
 
   const handleDeleteColumn = () => {
     const id = column?.id;
 
     dispatch(deleteColumn(id));
-    onRequestClose();
     onClose();
+    onNavigateToMyDesk();
   };
 
   const isLoadingUpdate = updateColumnFetchStatus === FetchStatus.PENDING;
   const isLoadingDelete = deleteColumnFetchStatus === FetchStatus.PENDING;
 
   return (
-    <ModalUi visible={visible} onRequestClose={onRequestClose}>
+    <ModalUi visible={visible} onClose={onClose}>
       <Header
         title="Settings"
         isDividerActive
         buttonRight={<CloseIcon fill={COLORS.lightBlue} />}
-        onPressButtonRight={onRequestClose}
+        onPressButtonRight={onClose}
       />
 
       <View style={styles.container}>

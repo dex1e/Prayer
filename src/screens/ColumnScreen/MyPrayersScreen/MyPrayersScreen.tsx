@@ -18,7 +18,7 @@ import {
   addPrayer,
   deletePrayer,
   getPrayers,
-  updatePrayer,
+  updatePrayerChecked,
 } from '~store/features/prayers';
 import {useAppDispatch, useAppSelector} from '~store/hooks';
 import {FetchStatus, ScreenName} from '~types';
@@ -87,7 +87,7 @@ export const MyPrayersScreen: FC<MyPrayersScreenProps> = ({columnId}) => {
   }
 
   const handleCheckPrayer = (id: number, checked: boolean) => {
-    dispatch(updatePrayer({id, checked}));
+    dispatch(updatePrayerChecked({id, checked}));
   };
 
   useEffect(() => {

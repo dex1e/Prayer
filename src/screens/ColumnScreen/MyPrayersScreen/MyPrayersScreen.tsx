@@ -129,7 +129,7 @@ export const MyPrayersScreen: FC<MyPrayersScreenProps> = ({columnId}) => {
                   prayer={prayer}
                   onDeletePrayer={handleDeletePrayer}
                   onCheckPrayer={handleCheckPrayer}
-                  onNavigate={() =>
+                  onNavigationToPrayer={() =>
                     navigation.navigate({
                       name: ScreenName.PRAYER,
                       params: {prayerId: prayer?.id},
@@ -164,7 +164,7 @@ export const MyPrayersScreen: FC<MyPrayersScreenProps> = ({columnId}) => {
                     prayer={checkedPrayer}
                     onDeletePrayer={handleDeletePrayer}
                     onCheckPrayer={handleCheckPrayer}
-                    onNavigate={() =>
+                    onNavigationToPrayer={() =>
                       navigation.navigate({
                         name: ScreenName.PRAYER,
                         params: {prayerId: checkedPrayer?.id},

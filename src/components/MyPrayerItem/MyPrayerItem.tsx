@@ -31,14 +31,14 @@ interface MyPrayerItemProps {
   prayer: IPrayer;
   onDeletePrayer: (id: number) => void;
   onCheckPrayer: (id: number, checked: boolean) => void;
-  onNavigate: () => void;
+  onNavigationToPrayer: () => void;
 }
 
 export const MyPrayerItem: FC<MyPrayerItemProps> = ({
   prayer,
   onDeletePrayer,
   onCheckPrayer,
-  onNavigate,
+  onNavigationToPrayer,
 }) => {
   const translateX = useSharedValue(0);
   const prayerHeight = useSharedValue(PRAYER_ITEM_HEIGHT);
@@ -97,7 +97,9 @@ export const MyPrayerItem: FC<MyPrayerItemProps> = ({
 
         <PanGestureHandler onGestureEvent={panGesture}>
           <Animated.View style={[styles.prayer, animatedPrayer]}>
-            <TouchableOpacity style={styles.prayer} onPress={onNavigate}>
+            <TouchableOpacity
+              style={styles.prayer}
+              onPress={onNavigationToPrayer}>
               <View style={styles.line}>
                 <Line height={24} />
               </View>

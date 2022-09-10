@@ -1,0 +1,1 @@
+export {HeaderPrayer} from './HeaderPrayer';

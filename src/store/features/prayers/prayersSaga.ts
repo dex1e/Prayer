@@ -8,6 +8,7 @@ import {
   deletePrayersApi,
   getPrayersApi,
   updatePrayerCheckedApi,
+  updatePrayerTitleApi,
 } from './prayersApi';
 
 import {
@@ -22,6 +23,9 @@ import {
   updatePrayerChecked,
   updatePrayerCheckedSucces,
   updatePrayerCheckedFailed,
+  updatePrayerTitleSucces,
+  updatePrayerTitleFailed,
+  updatePrayerTitle,
 } from './prayersSlice';
 
 export function* prayersWatcherSaga() {
@@ -29,6 +33,7 @@ export function* prayersWatcherSaga() {
   yield takeLatest(addPrayer.type, handleAddPrayer);
   yield takeLatest(deletePrayer.type, handleDeletePrayer);
   yield takeLatest(updatePrayerChecked.type, handleUpdateCheckedPrayer);
+  yield takeLatest(updatePrayerTitle.type, handleUpdateTitlePrayer);
 }
 
 export function* handleGetPrayers() {
@@ -77,7 +82,20 @@ export function* handleUpdateCheckedPrayer(action: PayloadAction<IPrayer>) {
 
     yield put(updatePrayerCheckedSucces(data));
   } catch (error) {
-    yield put(updatePrayerCheckedFailed());
+    yield put(updatePrayerCheckedFailed(error));
+    console.log(error);
+  }
+}
+
+export function* handleUpdateTitlePrayer(action: PayloadAction<IPrayer>) {
+  const {id, title} = action.payload;
+
+  try {
+    const {data} = yield call(() => updatePrayerTitleApi(id, title));
+
+    yield put(updatePrayerTitleSucces(data));
+  } catch (error) {
+    yield put(updatePrayerTitleFailed(error));
     console.log(error);
   }
 }

@@ -4,7 +4,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import {COLORS, FONT_FAMILY} from '~assets';
 import {CloseIcon} from '~components/icons';
 import {ButtonUI, Header, Input, ModalUi} from '~components/ui';
-import {deletePrayer} from '~store/features/prayers';
+import {deletePrayer, updatePrayerTitle} from '~store/features/prayers';
 import {useAppDispatch, useAppSelector} from '~store/hooks';
 import {FetchStatus, IPrayer} from '~types';
 
@@ -12,17 +12,21 @@ interface ModalPrayerSettingsProps {
   visible: boolean;
   prayer?: IPrayer;
   onClose: () => void;
-  onNavigationToMyPrayers: () => void;
+  onNavigateToMyPrayers: () => void;
+}
+
+interface ModalPrayerSettingsValues {
+  title: string;
 }
 
 export const ModalPrayerSettings: FC<ModalPrayerSettingsProps> = ({
   visible,
   prayer,
   onClose,
-  onNavigationToMyPrayers,
+  onNavigateToMyPrayers,
 }) => {
-  const updatePrayerFetchStatus = useAppSelector(
-    state => state.prayersData.updatePrayerFetchStatus,
+  const updatePrayerTitleFetchStatus = useAppSelector(
+    state => state.prayersData.updatePrayerTitleFetchStatus,
   );
   const deletePrayerFetchStatus = useAppSelector(
     state => state.prayersData.deletePrayerFetchStatus,
@@ -38,19 +42,27 @@ export const ModalPrayerSettings: FC<ModalPrayerSettingsProps> = ({
       title: '',
     },
   });
-  const isLoadingUpdate = updatePrayerFetchStatus === FetchStatus.PENDING;
+  const isLoadingUpdateTitle =
+    updatePrayerTitleFetchStatus === FetchStatus.PENDING;
   const isLoadingDelete = deletePrayerFetchStatus === FetchStatus.PENDING;
+
+  const handleUpdateTitle = ({title}: ModalPrayerSettingsValues) => {
+    const id = prayer?.id;
+
+    dispatch(updatePrayerTitle({id, title}));
+    onClose();
+  };
 
   const handleDeletePrayer = () => {
     const id = prayer?.id;
 
     dispatch(deletePrayer(id));
     onClose();
-    onNavigationToMyPrayers();
+    onNavigateToMyPrayers();
   };
 
   return (
-    <ModalUi visible={visible} onRequestClose={onClose}>
+    <ModalUi visible={visible} onClose={onClose}>
       <Header
         title="Settings"
         isDividerActive
@@ -86,8 +98,8 @@ export const ModalPrayerSettings: FC<ModalPrayerSettingsProps> = ({
         <View style={styles.buttonUpdate}>
           <ButtonUI
             title="Update prayer"
-            isLoading={isLoadingUpdate}
-            // onPress={handleSubmit(onSubmit)}
+            isLoading={isLoadingUpdateTitle}
+            onPress={handleSubmit(handleUpdateTitle)}
           />
         </View>
 

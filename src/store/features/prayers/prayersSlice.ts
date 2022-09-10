@@ -67,8 +67,29 @@ export const prayersSlice = createSlice({
       state.updatePrayerCheckedFetchStatus = FetchStatus.FULFILLED;
     },
 
-    updatePrayerCheckedFailed: state => {
+    updatePrayerCheckedFailed: (state, _action) => {
       state.updatePrayerCheckedFetchStatus = FetchStatus.REJECTED;
+    },
+
+    updatePrayerTitle: (state, _action) => {
+      state.updatePrayerTitleFetchStatus = FetchStatus.PENDING;
+    },
+
+    updatePrayerTitleSucces: (state, action: PayloadAction<IPrayer>) => {
+      const {id, title} = action.payload;
+
+      state.prayers = state.prayers.map(prayer => {
+        if (prayer.id === id) {
+          prayer.title = title;
+        }
+        return prayer;
+      });
+
+      state.updatePrayerTitleFetchStatus = FetchStatus.FULFILLED;
+    },
+
+    updatePrayerTitleFailed: (state, _action) => {
+      state.updatePrayerTitleFetchStatus = FetchStatus.REJECTED;
     },
   },
 });
@@ -86,6 +107,9 @@ export const {
   updatePrayerChecked,
   updatePrayerCheckedSucces,
   updatePrayerCheckedFailed,
+  updatePrayerTitle,
+  updatePrayerTitleSucces,
+  updatePrayerTitleFailed,
 } = prayersSlice.actions;
 
 export default prayersSlice.reducer;

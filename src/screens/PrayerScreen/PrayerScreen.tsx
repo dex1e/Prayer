@@ -49,7 +49,7 @@ export const PrayerScreen = ({
           visible={isSettingsModalVisible}
           prayer={currentPrayer}
           onClose={handleCloseSettingsModalVisible}
-          onNavigationToMyPrayers={() =>
+          onNavigateToMyPrayers={() =>
             navigation.navigate(ScreenName.MYPRAYERS)
           }
         />

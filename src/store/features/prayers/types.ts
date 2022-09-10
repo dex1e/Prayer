@@ -4,7 +4,7 @@ export interface IPrayersInitialState {
   prayers: IPrayer[];
   getPrayersFetchStatus: FetchStatus;
   addPrayerFetchStatus: FetchStatus;
-  updatePrayerFetchStatus: FetchStatus;
+  updatePrayerCheckedFetchStatus: FetchStatus;
   deletePrayerFetchStatus: FetchStatus;
   error: string;
 }

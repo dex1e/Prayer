@@ -4,21 +4,17 @@ import {Modal, View} from 'react-native';
 interface ModalUiProps {
   children: ReactNode;
   visible: boolean;
-  onRequestClose: () => void;
+  onClose: () => void;
 }
 
-export const ModalUi: FC<ModalUiProps> = ({
-  children,
-  visible,
-  onRequestClose,
-}) => {
+export const ModalUi: FC<ModalUiProps> = ({children, visible, onClose}) => {
   return (
     <View>
       <Modal
         animationType="slide"
         transparent={false}
         visible={visible}
-        onRequestClose={onRequestClose}>
+        onRequestClose={onClose}>
         {children}
       </Modal>
     </View>

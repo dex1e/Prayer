@@ -5,7 +5,7 @@ export const initialState: IPrayersInitialState = {
   prayers: [],
   getPrayersFetchStatus: FetchStatus.IDLE,
   addPrayerFetchStatus: FetchStatus.IDLE,
-  updatePrayerFetchStatus: FetchStatus.IDLE,
+  updatePrayerCheckedFetchStatus: FetchStatus.IDLE,
   deletePrayerFetchStatus: FetchStatus.IDLE,
   error: '',
 };

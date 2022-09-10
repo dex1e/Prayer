@@ -51,8 +51,8 @@ export const ColumnScreen = ({navigation, route}: ColumnScreenProps) => {
       <ModalColumnSettings
         visible={isSettingsModalVisible}
         column={currentColumn}
-        onRequestClose={handleCloseSettingsModalVisible}
-        onClose={() => navigation.navigate(ScreenName.MYDESK)}
+        onClose={handleCloseSettingsModalVisible}
+        onNavigateToMyDesk={() => navigation.navigate(ScreenName.MYDESK)}
       />
 
       <Tab.Navigator

@@ -13,7 +13,7 @@ export const createNewPrayer = async (
   return ApiService.post(API_URL.ADD_PRAYER(id), {title, description}, {id});
 };
 
-export const updatePrayerApi = async (id: number, checked: boolean) => {
+export const updatePrayerCheckedApi = async (id: number, checked: boolean) => {
   return ApiService.put(API_URL.UPDATE_PRAYER(id), {checked}, {id});
 };
 

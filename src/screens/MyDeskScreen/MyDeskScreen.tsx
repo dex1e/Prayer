@@ -40,7 +40,13 @@ export const MyDeskScreen = ({navigation}: MyDeskScreenProps) => {
   }, [dispatch]);
 
   if (isLoading) {
-    return <ActivityIndicator size="large" color={COLORS.primary} />;
+    return (
+      <ActivityIndicator
+        style={styles.loading}
+        size="large"
+        color={COLORS.primary}
+      />
+    );
   }
 
   return (
@@ -116,5 +122,11 @@ const styles = StyleSheet.create({
 
   containerColumns: {
     padding: 15,
+  },
+
+  loading: {
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
   },
 });

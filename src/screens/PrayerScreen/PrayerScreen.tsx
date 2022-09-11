@@ -62,7 +62,13 @@ export const PrayerScreen = ({
   }, [dispatch]);
 
   if (isLoadingGetComments) {
-    return <ActivityIndicator size="large" color={COLORS.primary} />;
+    return (
+      <ActivityIndicator
+        style={styles.loading}
+        size="large"
+        color={COLORS.primary}
+      />
+    );
   }
 
   return (
@@ -126,5 +132,11 @@ const styles = StyleSheet.create({
     fontFamily: FONT_FAMILY.primary,
     fontSize: 17,
     lineHeight: 20,
+  },
+
+  loading: {
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
   },
 });

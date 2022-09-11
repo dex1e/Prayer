@@ -97,7 +97,13 @@ export const MyPrayersScreen: FC<MyPrayersScreenProps> = ({columnId}) => {
   }, [navigation, dispatch]);
 
   if (isLoadingGetPrayers) {
-    return <ActivityIndicator size="large" color={COLORS.primary} />;
+    return (
+      <ActivityIndicator
+        style={styles.loading}
+        size="large"
+        color={COLORS.primary}
+      />
+    );
   }
 
   return (
@@ -209,5 +215,11 @@ const styles = StyleSheet.create({
 
   emptyPrayers: {
     alignSelf: 'center',
+  },
+
+  loading: {
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
   },
 });

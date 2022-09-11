@@ -1,3 +1,4 @@
+export {MessageIcon} from './MessageIcon';
 export {UserIcon} from './UserIcon';
 export {Line} from './Line';
 export {CheckboxIcon} from './CheckboxIcon';

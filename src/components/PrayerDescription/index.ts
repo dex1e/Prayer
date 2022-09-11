@@ -1,0 +1,1 @@
+export {PrayerDescription} from './PrayerDescription';

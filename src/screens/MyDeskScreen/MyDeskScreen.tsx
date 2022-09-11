@@ -59,6 +59,7 @@ export const MyDeskScreen = ({navigation}: MyDeskScreenProps) => {
         onPressButtonRight={handleSignOut}
         onPressButtonLeft={handleAddColumnModalVisible}
       />
+
       <ScrollView style={styles.container}>
         <ModalAddColumn
           visible={isAddColumnModalVisible}

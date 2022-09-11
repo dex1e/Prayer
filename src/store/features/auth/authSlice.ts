@@ -30,7 +30,9 @@ export const authSlice = createSlice({
       state.registrationFetchStatus = FetchStatus.FULFILLED;
     },
 
-    registerUserFailed: (state, _action) => {
+    registerUserFailed: (state, action: PayloadAction<string>) => {
+      state.error = action.payload;
+
       state.registrationFetchStatus = FetchStatus.REJECTED;
     },
 
@@ -43,7 +45,8 @@ export const authSlice = createSlice({
       state.loginFetchStatus = FetchStatus.FULFILLED;
     },
 
-    loginUserFailed: (state, _action) => {
+    loginUserFailed: (state, action: PayloadAction<string>) => {
+      state.error = action.payload;
       state.loginFetchStatus = FetchStatus.REJECTED;
     },
 

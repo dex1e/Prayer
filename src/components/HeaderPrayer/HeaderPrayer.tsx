@@ -29,7 +29,9 @@ export const HeaderPrayer: FC<HeaderPrayerProps> = ({
         </TouchableOpacity>
       </View>
 
-      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.title} numberOfLines={2}>
+        {title}
+      </Text>
     </View>
   );
 };

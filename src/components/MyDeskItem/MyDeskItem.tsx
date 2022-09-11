@@ -13,7 +13,9 @@ interface MyDeskItemProps {
 export const MyDeskItem: FC<MyDeskItemProps> = ({column, onClick}) => {
   return (
     <TouchableOpacity style={styles.column} onPress={onClick}>
-      <Text style={styles.columnTitle}>{column?.title}</Text>
+      <Text style={styles.columnTitle} numberOfLines={2}>
+        {column?.title}
+      </Text>
     </TouchableOpacity>
   );
 };
@@ -33,5 +35,6 @@ const styles = StyleSheet.create({
     fontFamily: FONT_FAMILY.primary,
     fontSize: 17,
     lineHeight: 20,
+    overflow: 'hidden',
   },
 });

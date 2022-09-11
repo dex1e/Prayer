@@ -25,7 +25,9 @@ export const Header: FC<HeaderProps> = ({
         {buttonLeft}
       </TouchableOpacity>
 
-      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.title} numberOfLines={2}>
+        {title}
+      </Text>
 
       <TouchableOpacity style={styles.buttonRight} onPress={onPressButtonRight}>
         {buttonRight}
@@ -48,17 +50,21 @@ const styles = StyleSheet.create({
   buttonLeft: {
     marginTop: 2,
     marginLeft: 15,
+    marginRight: 5,
   },
 
   buttonRight: {
-    marginRight: 15,
+    marginRight: 20,
   },
 
   title: {
+    width: '83%',
     fontFamily: FONT_FAMILY.primary,
     fontSize: 17,
     lineHeight: 20,
     color: COLORS.primary,
+    paddingRight: 5,
+    textAlign: 'center',
   },
 
   divider: {

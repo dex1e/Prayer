@@ -47,11 +47,18 @@ export function* handleRegisterUser(action: PayloadAction<IUser>) {
 
   try {
     const {data} = yield call(() => signUp(email, name, password));
-    yield put(registerUserSucces(data));
+
+    if (data.id) {
+      yield put(registerUserSucces(data));
+    } else if (data.message) {
+      yield put(registerUserFailed(data.message));
+    } else {
+      yield put(registerUserFailed('Authentification error'));
+    }
 
     AsyncStorageService.setData(AsyncStorageVariables.USER, data);
   } catch (error) {
-    yield put(registerUserFailed(error));
+    yield put(registerUserFailed(JSON.stringify(error)));
   }
 }
 
@@ -60,11 +67,18 @@ export function* handleLoginUser(action: PayloadAction<IUser>) {
 
   try {
     const {data} = yield call(() => signIn(email, password));
-    yield put(loginUserSucces(data));
+
+    if (data.id) {
+      yield put(loginUserSucces(data));
+    } else if (data.message) {
+      yield put(loginUserFailed(data.message));
+    } else {
+      yield put(loginUserFailed('Authentification error'));
+    }
 
     AsyncStorageService.setData(AsyncStorageVariables.USER, data);
   } catch (error) {
-    yield put(loginUserFailed(error));
+    yield put(loginUserFailed(JSON.stringify(error)));
   }
 }
 

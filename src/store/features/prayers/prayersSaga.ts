@@ -48,9 +48,13 @@ export function* handleGetPrayers() {
 }
 
 export function* handleAddPrayer(action: PayloadAction<IPrayer>) {
-  const {title, description, id} = action.payload;
+  const {title, description, columnId} = action.payload;
+
   try {
-    const {data} = yield call(() => createNewPrayer(title, description, id));
+    const {data} = yield call(() =>
+      createNewPrayer(title, description, columnId),
+    );
+
     yield put(addPrayerSucces(data));
   } catch (error) {
     yield put(addColumnFailed(error));

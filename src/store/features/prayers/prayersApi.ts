@@ -8,9 +8,13 @@ export const getPrayersApi = async () => {
 export const createNewPrayer = async (
   title: string,
   description: string,
-  id: number,
+  columnId: number,
 ) => {
-  return ApiService.post(API_URL.ADD_PRAYER(id), {title, description}, {id});
+  return ApiService.post(
+    API_URL.ADD_PRAYER(columnId),
+    {title, description},
+    {columnId},
+  );
 };
 
 export const updatePrayerCheckedApi = async (id: number, checked: boolean) => {

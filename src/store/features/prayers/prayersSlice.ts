@@ -25,7 +25,9 @@ export const prayersSlice = createSlice({
     },
 
     addPrayerSucces: (state, action: PayloadAction<IPrayer>) => {
-      state.prayers = [...state.prayers, action.payload];
+      const newPrayer = {...action.payload, commentsIds: []};
+
+      state.prayers = [...state.prayers, newPrayer];
 
       state.addPrayerFetchStatus = FetchStatus.FULFILLED;
     },

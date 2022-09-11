@@ -6,7 +6,7 @@ export const API_URL = {
   UPDATE_COLUMN: (id: number) => `columns/${id}`,
   DELETE_COLUMN: (id: number) => `columns/${id}`,
   GET_PRAYERS: 'prayers',
-  ADD_PRAYER: (id: number) => `columns/${id}/prayers`,
+  ADD_PRAYER: (columnId: number) => `columns/${columnId}/prayers`,
   DELETE_PRAYER: (id: number) => `prayers/${id}`,
   UPDATE_PRAYER: (id: number) => `prayers/${id}`,
   GET_COMMENTS: 'comments',

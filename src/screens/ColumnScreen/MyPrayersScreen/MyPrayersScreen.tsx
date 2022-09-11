@@ -72,9 +72,7 @@ export const MyPrayersScreen: FC<MyPrayersScreenProps> = ({columnId}) => {
   }, [filtredPrayers]);
 
   const addNewPrayer = ({title, description}: MyPrayersValues) => {
-    const id = columnId;
-
-    dispatch(addPrayer({title, description, id}));
+    dispatch(addPrayer({title, description, columnId}));
   };
 
   const onSubmit = () => {
@@ -91,8 +89,12 @@ export const MyPrayersScreen: FC<MyPrayersScreenProps> = ({columnId}) => {
   };
 
   useEffect(() => {
-    dispatch(getPrayers());
-  }, [dispatch]);
+    const unsubscribe = navigation.addListener('focus', () => {
+      dispatch(getPrayers());
+    });
+
+    return unsubscribe;
+  }, [navigation, dispatch]);
 
   if (isLoadingGetPrayers) {
     return <ActivityIndicator size="large" color={COLORS.primary} />;

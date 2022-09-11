@@ -9,4 +9,6 @@ export const API_URL = {
   ADD_PRAYER: (id: number) => `columns/${id}/prayers`,
   DELETE_PRAYER: (id: number) => `prayers/${id}`,
   UPDATE_PRAYER: (id: number) => `prayers/${id}`,
+  GET_COMMENTS: 'comments',
+  ADD_COMMENT: (id: number) => `prayers/${id}/comments`,
 };

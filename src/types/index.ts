@@ -39,3 +39,11 @@ export interface IPrayer {
   columnId: number;
   commentsIds: string[];
 }
+
+export interface IComment {
+  id: number;
+  body: string;
+  created: string;
+  prayerId: number;
+  userId: number;
+}

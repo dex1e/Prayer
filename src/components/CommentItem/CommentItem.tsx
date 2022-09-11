@@ -76,7 +76,9 @@ const styles = StyleSheet.create({
     marginRight: 9,
   },
 
-  commentItemText: {},
+  commentItemText: {
+    width: '100%',
+  },
 
   topCommentText: {
     flexDirection: 'row',

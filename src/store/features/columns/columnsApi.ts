@@ -8,3 +8,15 @@ export const getColumnsApi = async () => {
 export const createNewColumn = async (title: string, description: string) => {
   return ApiService.post(API_URL.ADD_COLUMN, {title, description});
 };
+
+export const updateColumnApi = async (
+  id: number,
+  title: string,
+  description: string,
+) => {
+  return ApiService.put(API_URL.UPDATE_COLUMN(id), {title, description}, {id});
+};
+
+export const deleteColumnApi = async (id: number) => {
+  return ApiService.delete(API_URL.DELETE_COLUMN(id), {id});
+};

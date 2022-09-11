@@ -23,7 +23,7 @@ export const ModalAddColumn: FC<ModalAddColumnProps> = ({
   onRequestClose,
 }) => {
   const addColumnFetchStatus = useAppSelector(
-    state => state.columns.addColumnFetchStatus,
+    state => state.columnsData.addColumnFetchStatus,
   );
   const dispatch = useAppDispatch();
 

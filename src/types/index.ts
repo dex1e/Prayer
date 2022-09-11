@@ -1,3 +1,10 @@
+export enum ScreenName {
+  COLUMN = 'Column',
+  MYDESK = 'MyDesk',
+  MYPRAYERS = 'MyPrayers',
+  SUBSCRIBED = 'Subscribed',
+}
+
 export enum FetchStatus {
   IDLE = 'idle',
   PENDING = 'pending',
@@ -9,8 +16,6 @@ export enum AsyncStorageVariables {
   USER = 'user',
 }
 
-export type Maybe<T> = T | null;
-
 export interface IUser {
   token: string;
   email: string;
@@ -19,8 +24,17 @@ export interface IUser {
 }
 
 export interface IColumn {
-  id: Maybe<number>;
+  id: number;
   title: string;
   description: string;
-  userId: Maybe<number>;
+  userId: number;
+}
+
+export interface IPrayer {
+  id: number;
+  title: string;
+  description: string;
+  checked: boolean;
+  columnId: number;
+  commentsIds: string[];
 }

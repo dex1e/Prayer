@@ -16,7 +16,7 @@ export const AuthNavigator = () => {
         name="Authorization"
         component={AuthorizationScreen}
         options={{
-          header: () => <Header title="Authorization" isDividerActive />,
+          header: () => <Header title="Authorization" />,
         }}
       />
     </Stack.Navigator>

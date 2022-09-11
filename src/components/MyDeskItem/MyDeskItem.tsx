@@ -1,27 +1,18 @@
-import {useNavigation} from '@react-navigation/native';
-
 import React from 'react';
 import {FC} from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {COLORS, FONT_FAMILY} from '~assets';
+
 import {IColumn} from '~types';
 
-interface ColumnProps {
+interface MyDeskItemProps {
   column?: IColumn;
+  onClick: () => void;
 }
 
-export const Column: FC<ColumnProps> = ({column}) => {
-  const navigation = useNavigation<any>();
-
+export const MyDeskItem: FC<MyDeskItemProps> = ({column, onClick}) => {
   return (
-    <TouchableOpacity
-      style={styles.column}
-      onPress={() =>
-        navigation.navigate({
-          name: 'Prayers',
-          params: {headerTitle: column?.title},
-        })
-      }>
+    <TouchableOpacity style={styles.column} onPress={onClick}>
       <Text style={styles.columnTitle}>{column?.title}</Text>
     </TouchableOpacity>
   );

@@ -1,28 +1,37 @@
-import React, {FC, useEffect} from 'react';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import React, {useEffect, useState} from 'react';
 import {ActivityIndicator, ScrollView, StyleSheet, View} from 'react-native';
 import {COLORS, FONT_FAMILY} from '~assets';
-import {ModalAddColumn} from '~components';
-import {Column} from '~components/Column/Column';
-
+import {ModalAddColumn, MyDeskItem} from '~components';
+import {PlusIcon, SignOut} from '~components/icons';
+import {Header} from '~components/ui';
+import {MainStackParamList} from '~navigation/MainNavigator';
+import {signOutUser} from '~store/features/auth';
 import {getColumns} from '~store/features/columns';
 import {useAppDispatch, useAppSelector} from '~store/hooks';
-import {FetchStatus} from '~types';
+import {FetchStatus, ScreenName} from '~types';
 
-interface MyDeskScreenProps {
-  isAddColumnModalVisible: boolean;
-  onCloseAddColumnModal: () => void;
-}
+type MyDeskScreenProps = NativeStackScreenProps<
+  MainStackParamList,
+  ScreenName.MYDESK
+>;
 
-export const MyDeskScreen: FC<MyDeskScreenProps> = ({
-  isAddColumnModalVisible,
-  onCloseAddColumnModal,
-}) => {
-  const columns = useAppSelector(state => state.columns.columns);
+export const MyDeskScreen = ({navigation}: MyDeskScreenProps) => {
+  const columns = useAppSelector(state => state.columnsData.columns);
   const getColumnsFetchStatus = useAppSelector(
-    state => state.columns.getColumnsFetchStatus,
+    state => state.columnsData.getColumnsFetchStatus,
   );
-
+  const [isAddColumnModalVisible, setIsAddColumnModalVisible] = useState(false);
   const dispatch = useAppDispatch();
+
+  const handleAddColumnModalVisible = () => {
+    setIsAddColumnModalVisible(true);
+  };
+  const handleCloseAddColumnModal = () => {
+    setIsAddColumnModalVisible(false);
+  };
+
+  const handleSignOut = () => dispatch(signOutUser());
 
   const isLoading = getColumnsFetchStatus === FetchStatus.PENDING;
 
@@ -35,20 +44,41 @@ export const MyDeskScreen: FC<MyDeskScreenProps> = ({
   }
 
   return (
-    <ScrollView style={styles.container}>
-      <ModalAddColumn
-        visible={isAddColumnModalVisible}
-        onRequestClose={onCloseAddColumnModal}
+    <>
+      <Header
+        title={ScreenName.MYDESK}
+        isDividerActive
+        buttonLeft={<PlusIcon />}
+        buttonRight={<SignOut width={24} height={24} fill={COLORS.lightBlue} />}
+        onPressButtonRight={handleSignOut}
+        onPressButtonLeft={handleAddColumnModalVisible}
       />
+      <ScrollView style={styles.container}>
+        <ModalAddColumn
+          visible={isAddColumnModalVisible}
+          onRequestClose={handleCloseAddColumnModal}
+        />
 
-      <View style={styles.containerColumns}>
-        {columns?.map(column => {
-          return <Column key={column?.id} column={column} />;
-        })}
-      </View>
+        <View style={styles.containerColumns}>
+          {columns?.map(column => {
+            return (
+              <MyDeskItem
+                key={column.id}
+                column={column}
+                onClick={() =>
+                  navigation.navigate({
+                    name: ScreenName.COLUMN,
+                    params: {columnId: column?.id},
+                  })
+                }
+              />
+            );
+          })}
+        </View>
 
-      <View />
-    </ScrollView>
+        <View />
+      </ScrollView>
+    </>
   );
 };
 

@@ -3,7 +3,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {FetchStatus, IColumn} from '~types';
 
 export const columnsSlice = createSlice({
-  name: 'columns',
+  name: 'columnsData',
   initialState,
 
   reducers: {
@@ -33,6 +33,44 @@ export const columnsSlice = createSlice({
     addColumnFailed: (state, _action) => {
       state.addColumnFetchStatus = FetchStatus.REJECTED;
     },
+
+    updateColumn: (state, _action) => {
+      state.updateColumnFetchStatus = FetchStatus.PENDING;
+    },
+
+    updateColumnSucces: (state, action: PayloadAction<IColumn>) => {
+      const {id, title, description} = action.payload;
+
+      state.columns = state.columns.map(column => {
+        if (column.id === id) {
+          column.title = title;
+          column.description = description;
+        }
+        return column;
+      });
+
+      state.updateColumnFetchStatus = FetchStatus.FULFILLED;
+    },
+
+    updateColumnFailed: state => {
+      state.updateColumnFetchStatus = FetchStatus.REJECTED;
+    },
+
+    deleteColumn: (state, _action) => {
+      state.deleteColumnFetchStatus = FetchStatus.PENDING;
+    },
+
+    deleteColumnSucces: (state, action: PayloadAction<number>) => {
+      state.columns = state.columns.filter(
+        column => column.id !== action.payload,
+      );
+
+      state.deleteColumnFetchStatus = FetchStatus.FULFILLED;
+    },
+
+    deleteColumnFailed: (state, _action) => {
+      state.deleteColumnFetchStatus = FetchStatus.REJECTED;
+    },
   },
 });
 
@@ -43,6 +81,12 @@ export const {
   addColumn,
   addColumnSucces,
   addColumnFailed,
+  updateColumn,
+  updateColumnSucces,
+  updateColumnFailed,
+  deleteColumn,
+  deleteColumnSucces,
+  deleteColumnFailed,
 } = columnsSlice.actions;
 
 export default columnsSlice.reducer;

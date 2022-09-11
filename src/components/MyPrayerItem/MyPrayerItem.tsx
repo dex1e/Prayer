@@ -121,7 +121,7 @@ export const MyPrayerItem: FC<MyPrayerItemProps> = ({
               </View>
 
               <Text style={styles.countComments}>
-                {prayer?.commentsIds?.length || 0}
+                {prayer?.commentsIds?.length}
               </Text>
             </TouchableOpacity>
           </Animated.View>

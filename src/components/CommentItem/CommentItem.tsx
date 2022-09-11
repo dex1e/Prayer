@@ -27,7 +27,6 @@ export const CommentItem: FC<CommentItemProps> = ({comment}) => {
       return dayjs(comment?.created).format('DD-MM-YYYY');
     }
   };
-  console.log(username, 'username');
 
   return (
     <>

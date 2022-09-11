@@ -23,6 +23,8 @@ export const ModalCommentSettings: FC<ModalCommentSettingsProps> = ({
   visible,
   onClose,
 }) => {
+  const username = useAppSelector(state => state.auth.user.name);
+
   const updateCommentFetchStatus = useAppSelector(
     state => state.commentsData.updateCommentFetchStatus,
   );
@@ -71,9 +73,7 @@ export const ModalCommentSettings: FC<ModalCommentSettingsProps> = ({
           Username
         </Text>
 
-        <Text style={styles.username}>
-          DDDDDDSDSDSSDDSSDSDusernameadadadadadDDDDDD
-        </Text>
+        <Text style={styles.username}>{username}</Text>
 
         <Text style={styles.title}>Body</Text>
 

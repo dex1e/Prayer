@@ -3,9 +3,9 @@ import {put, call, takeLatest} from 'redux-saga/effects';
 import {AsyncStorageVariables, IUser} from '~types';
 import {signIn, signUp} from './authApi';
 import {
-  getToken,
-  getTokenFailed,
-  getTokenSucces,
+  getUser,
+  getUserFailed,
+  getUserSucces,
   loginUser,
   loginUserFailed,
   loginUserSucces,
@@ -21,24 +21,25 @@ import {AsyncStorageService} from '~services';
 export function* userWatcherSaga() {
   yield takeLatest(registerUser.type, handleRegisterUser);
   yield takeLatest(loginUser.type, handleLoginUser);
-  yield takeLatest(getToken.type, handleGetToken);
+  yield takeLatest(getUser.type, handleGetUser);
   yield takeLatest(signOutUser.type, handleSignOutUser);
 }
 
-export function* handleGetToken() {
+export function* handleGetUser() {
   try {
-    const {token} = yield call(
+    const user: IUser = yield call(
       AsyncStorageService.getData,
       AsyncStorageVariables.USER,
     );
 
-    if (token) {
-      yield put(getTokenSucces(token));
+    if (user) {
+      yield put(getUserSucces(user));
     } else {
-      yield put(getTokenFailed());
+      yield put(getUserFailed());
     }
   } catch (error) {
-    yield put(getTokenFailed());
+    yield put(getUserFailed());
+    console.log(error);
   }
 }
 
@@ -50,13 +51,12 @@ export function* handleRegisterUser(action: PayloadAction<IUser>) {
 
     if (data.id) {
       yield put(registerUserSucces(data));
+      AsyncStorageService.setData(AsyncStorageVariables.USER, data);
     } else if (data.message) {
       yield put(registerUserFailed(data.message));
     } else {
       yield put(registerUserFailed('Authentification error'));
     }
-
-    AsyncStorageService.setData(AsyncStorageVariables.USER, data);
   } catch (error) {
     yield put(registerUserFailed(JSON.stringify(error)));
   }

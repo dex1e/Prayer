@@ -70,13 +70,12 @@ export function* handleLoginUser(action: PayloadAction<IUser>) {
 
     if (data.id) {
       yield put(loginUserSucces(data));
+      AsyncStorageService.setData(AsyncStorageVariables.USER, data);
     } else if (data.message) {
       yield put(loginUserFailed(data.message));
     } else {
       yield put(loginUserFailed('Authentification error'));
     }
-
-    AsyncStorageService.setData(AsyncStorageVariables.USER, data);
   } catch (error) {
     yield put(loginUserFailed(JSON.stringify(error)));
   }

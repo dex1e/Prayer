@@ -11,4 +11,6 @@ export const API_URL = {
   UPDATE_PRAYER: (id: number) => `prayers/${id}`,
   GET_COMMENTS: 'comments',
   ADD_COMMENT: (id: number) => `prayers/${id}/comments`,
+  UPDATE_COMMENT: (id: number) => `comments/${id}`,
+  DELETE_COMMENT: (id: number) => `comments/${id}`,
 };

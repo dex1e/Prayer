@@ -8,3 +8,11 @@ export const getCommentsApi = async () => {
 export const createNewComment = async (body: string, id: number) => {
   return ApiService.post(API_URL.ADD_COMMENT(id), {body}, {id});
 };
+
+export const updateCommentApi = async (id: number, body: string) => {
+  return ApiService.put(API_URL.UPDATE_COMMENT(id), {body}, {id});
+};
+
+export const deleteCommentApi = async (id: number) => {
+  return ApiService.delete(API_URL.DELETE_COMMENT(id), {id});
+};

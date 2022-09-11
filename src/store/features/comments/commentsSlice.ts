@@ -33,6 +33,43 @@ export const commentsSlice = createSlice({
     addCommentFailed: (state, _action) => {
       state.addCommentsFetchStatus = FetchStatus.REJECTED;
     },
+
+    updateComment: (state, _action) => {
+      state.updateCommentFetchStatus = FetchStatus.PENDING;
+    },
+
+    updateCommentSucces: (state, action: PayloadAction<IComment>) => {
+      const {id, body} = action.payload;
+
+      state.comments = state.comments.map(comment => {
+        if (comment.id === id) {
+          comment.body = body;
+        }
+        return comment;
+      });
+
+      state.updateCommentFetchStatus = FetchStatus.FULFILLED;
+    },
+
+    updateCommentFailed: (state, _action) => {
+      state.updateCommentFetchStatus = FetchStatus.REJECTED;
+    },
+
+    deleteComment: (state, _action) => {
+      state.deleteCommentFetchStatus = FetchStatus.PENDING;
+    },
+
+    deleteCommentSucces: (state, action: PayloadAction<number>) => {
+      state.comments = state.comments.filter(
+        comment => comment.id !== action.payload,
+      );
+
+      state.deleteCommentFetchStatus = FetchStatus.FULFILLED;
+    },
+
+    deleteCommentFailed: (state, _action) => {
+      state.deleteCommentFetchStatus = FetchStatus.REJECTED;
+    },
   },
 });
 
@@ -43,6 +80,12 @@ export const {
   addComment,
   addCommentSucces,
   addCommentFailed,
+  updateComment,
+  updateCommentSucces,
+  updateCommentFailed,
+  deleteComment,
+  deleteCommentSucces,
+  deleteCommentFailed,
 } = commentsSlice.actions;
 
 export default commentsSlice.reducer;

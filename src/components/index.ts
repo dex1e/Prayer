@@ -1,3 +1,4 @@
+export {ModalCommentSettings} from './ModalCommentSettings';
 export {CommentItem} from './CommentItem';
 export {AddCommentItem} from './AddCommentItem';
 export {PrayerMembers} from './PrayerMembers';

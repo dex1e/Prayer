@@ -29,11 +29,13 @@ export const CommentItem: FC<CommentItemProps> = ({comment}) => {
       </View>
 
       <View style={styles.commentItemText}>
-        <Text style={styles.commentUserName}>Username</Text>
+        <View style={styles.topCommentText}>
+          <Text style={styles.commentUserName}>Username</Text>
+          <Text style={styles.daysAgo}>{createdDate()}</Text>
+        </View>
+
         <Text style={styles.commentText}>{comment?.body}</Text>
       </View>
-
-      <Text style={styles.daysAgo}>{createdDate()}</Text>
     </View>
   );
 };
@@ -58,8 +60,10 @@ const styles = StyleSheet.create({
     marginRight: 9,
   },
 
-  commentItemText: {
-    paddingRight: 6,
+  commentItemText: {},
+
+  topCommentText: {
+    flexDirection: 'row',
   },
 
   commentUserName: {
@@ -68,13 +72,7 @@ const styles = StyleSheet.create({
     fontSize: 17,
     lineHeight: 20,
     color: COLORS.primary,
-  },
-
-  commentText: {
-    fontFamily: FONT_FAMILY.primary,
-    fontSize: 17,
-    lineHeight: 20,
-    color: COLORS.primary,
+    paddingRight: 6,
   },
 
   daysAgo: {
@@ -83,5 +81,12 @@ const styles = StyleSheet.create({
     fontSize: 13,
     lineHeight: 16,
     color: COLORS.secondaryGray,
+  },
+
+  commentText: {
+    fontFamily: FONT_FAMILY.primary,
+    fontSize: 17,
+    lineHeight: 20,
+    color: COLORS.primary,
   },
 });

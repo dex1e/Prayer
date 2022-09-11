@@ -1,4 +1,5 @@
-export {Comments} from './Comments';
+export {CommentItem} from './CommentItem';
+export {AddCommentItem} from './AddCommentItem';
 export {PrayerMembers} from './PrayerMembers';
 export {PrayerDescription} from './PrayerDescription';
 export {ModalPrayerSettings} from './ModalPrayerSettings';

@@ -10,7 +10,8 @@ import {
 } from 'react-native';
 import {COLORS, FONT_FAMILY} from '~assets';
 import {
-  Comments,
+  AddCommentItem,
+  CommentItem,
   ModalPrayerSettings,
   PrayerDescription,
   PrayerMembers,
@@ -38,7 +39,9 @@ export const PrayerScreen = ({
   const getCommentsFetchStatus = useAppSelector(
     state => state.commentsData.getCommentsFetchStatus,
   );
+
   const dispatch = useAppDispatch();
+
   const [isSettingsModalVisible, setIsSettingsModalVisible] = useState(false);
 
   const handleSettingsModalVisible = () => {
@@ -72,7 +75,7 @@ export const PrayerScreen = ({
   }
 
   return (
-    <>
+    <View style={styles.container}>
       <HeaderPrayer
         title={currentPrayer?.title}
         buttonLeft={<LeftArrowIcon fill={COLORS.white} />}
@@ -81,7 +84,7 @@ export const PrayerScreen = ({
         onPressButtonRight={handleSettingsModalVisible}
       />
 
-      <ScrollView style={styles.container}>
+      <ScrollView style={styles.body}>
         <ModalPrayerSettings
           visible={isSettingsModalVisible}
           prayer={currentPrayer}
@@ -101,17 +104,31 @@ export const PrayerScreen = ({
 
         <PrayerDescription />
         <PrayerMembers />
-        <Comments
-          filtredComments={filtredComments}
-          prayerId={currentPrayer?.id}
-        />
+        <>
+          <Text style={styles.commentsTitle}>Comments</Text>
+          {filtredComments.length ? (
+            <View style={styles.commentsContainer}>
+              {filtredComments.map(comment => {
+                return <CommentItem key={comment.id} comment={comment} />;
+              })}
+            </View>
+          ) : (
+            <Text style={styles.emptyComments}>NO COMMENTS</Text>
+          )}
+        </>
       </ScrollView>
-    </>
+
+      <AddCommentItem prayerId={currentPrayer?.id} />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+  },
+
+  body: {
     width: '100%',
     backgroundColor: COLORS.white,
   },
@@ -132,6 +149,24 @@ const styles = StyleSheet.create({
     fontFamily: FONT_FAMILY.primary,
     fontSize: 17,
     lineHeight: 20,
+  },
+
+  commentsTitle: {
+    fontFamily: FONT_FAMILY.primary,
+    fontSize: 13,
+    lineHeight: 15,
+    color: COLORS.lightBlue,
+    textTransform: 'uppercase',
+    paddingBottom: 15,
+    paddingLeft: 15,
+  },
+
+  commentsContainer: {
+    paddingBottom: 15,
+  },
+
+  emptyComments: {
+    alignSelf: 'center',
   },
 
   loading: {

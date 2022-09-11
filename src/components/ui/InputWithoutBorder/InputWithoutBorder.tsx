@@ -25,7 +25,8 @@ export const InputWithoutBorder: FC<InputWithoutBorderProps> = ({
 const styles = StyleSheet.create({
   inputContainer: {
     width: '100%',
-    // paddingHorizontal: 15,
+    paddingRight: 15,
+    overflow: 'hidden',
   },
 
   input: {

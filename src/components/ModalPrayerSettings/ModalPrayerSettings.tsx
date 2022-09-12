@@ -42,21 +42,20 @@ export const ModalPrayerSettings: FC<ModalPrayerSettingsProps> = ({
       title: '',
     },
   });
+
+  const prayerId = prayer?.id;
+
   const isLoadingUpdateTitle =
     updatePrayerTitleFetchStatus === FetchStatus.PENDING;
   const isLoadingDelete = deletePrayerFetchStatus === FetchStatus.PENDING;
 
   const handleUpdateTitle = ({title}: ModalPrayerSettingsValues) => {
-    const id = prayer?.id;
-
-    dispatch(updatePrayerTitle({id, title}));
+    dispatch(updatePrayerTitle({id: prayerId, title}));
     onClose();
   };
 
   const handleDeletePrayer = () => {
-    const id = prayer?.id;
-
-    dispatch(deletePrayer(id));
+    dispatch(deletePrayer(prayerId));
     onClose();
     onNavigateToMyPrayers();
   };

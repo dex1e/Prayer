@@ -36,9 +36,7 @@ export const AddCommentItem: FC<AddCommentItemProps> = ({prayerId}) => {
   const isLoadingAddComment = addCommentFetchStatus === FetchStatus.PENDING;
 
   const addNewComment = ({body}: AddCommentItemValues) => {
-    const id = prayerId;
-
-    dispatch(addComment({body, id}));
+    dispatch(addComment({body, id: prayerId}));
     reset();
   };
 

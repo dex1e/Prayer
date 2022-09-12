@@ -39,7 +39,6 @@ export function* handleGetUser() {
     }
   } catch (error) {
     yield put(getUserFailed());
-    console.log(error);
   }
 }
 

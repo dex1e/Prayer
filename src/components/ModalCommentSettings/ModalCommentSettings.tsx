@@ -41,21 +41,18 @@ export const ModalCommentSettings: FC<ModalCommentSettingsProps> = ({
       body: '',
     },
   });
+  const commentId = comment?.id;
 
   const isLoadingUpdate = updateCommentFetchStatus === FetchStatus.PENDING;
   const isLoadingDelete = deleteCommentFetchStatus === FetchStatus.PENDING;
 
   const handleUpdateComment = ({body}: ModalCommentSettingsValues) => {
-    const id = comment?.id;
-
-    dispatch(updateComment({id, body}));
+    dispatch(updateComment({id: commentId, body}));
     onClose();
   };
 
   const handleDeleteComment = () => {
-    const id = comment?.id;
-
-    dispatch(deleteComment(id));
+    dispatch(deleteComment(commentId));
     onClose();
   };
 

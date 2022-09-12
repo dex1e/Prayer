@@ -18,13 +18,13 @@ export const createNewPrayer = async (
 };
 
 export const updatePrayerCheckedApi = async (id: number, checked: boolean) => {
-  return ApiService.put(API_URL.UPDATE_PRAYER(id), {checked}, {id});
+  return ApiService.put(API_URL.UPDATE_PRAYER(id), {checked});
 };
 
 export const updatePrayerTitleApi = async (id: number, title: string) => {
-  return ApiService.put(API_URL.UPDATE_PRAYER(id), {title}, {id});
+  return ApiService.put(API_URL.UPDATE_PRAYER(id), {title});
 };
 
 export const deletePrayersApi = async (id: number) => {
-  return ApiService.delete(API_URL.DELETE_PRAYER(id), {id});
+  return ApiService.delete(API_URL.DELETE_PRAYER(id));
 };

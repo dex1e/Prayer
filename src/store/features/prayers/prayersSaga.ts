@@ -74,7 +74,6 @@ export function* handleDeletePrayer(action: PayloadAction<number>) {
     }
   } catch (error: any) {
     yield put(deletePrayerFailed(error.response.data.message));
-    console.log(error.response.data.message);
   }
 }
 
@@ -87,7 +86,6 @@ export function* handleUpdateCheckedPrayer(action: PayloadAction<IPrayer>) {
     yield put(updatePrayerCheckedSucces(data));
   } catch (error) {
     yield put(updatePrayerCheckedFailed(error));
-    console.log(error);
   }
 }
 
@@ -100,6 +98,5 @@ export function* handleUpdateTitlePrayer(action: PayloadAction<IPrayer>) {
     yield put(updatePrayerTitleSucces(data));
   } catch (error) {
     yield put(updatePrayerTitleFailed(error));
-    console.log(error);
   }
 }

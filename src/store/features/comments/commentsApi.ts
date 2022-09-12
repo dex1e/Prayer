@@ -6,13 +6,13 @@ export const getCommentsApi = async () => {
 };
 
 export const createNewComment = async (body: string, id: number) => {
-  return ApiService.post(API_URL.ADD_COMMENT(id), {body}, {id});
+  return ApiService.post(API_URL.ADD_COMMENT(id), {body});
 };
 
 export const updateCommentApi = async (id: number, body: string) => {
-  return ApiService.put(API_URL.UPDATE_COMMENT(id), {body}, {id});
+  return ApiService.put(API_URL.UPDATE_COMMENT(id), {body});
 };
 
 export const deleteCommentApi = async (id: number) => {
-  return ApiService.delete(API_URL.DELETE_COMMENT(id), {id});
+  return ApiService.delete(API_URL.DELETE_COMMENT(id));
 };

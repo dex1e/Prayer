@@ -42,6 +42,9 @@ export const ModalCommentSettings: FC<ModalCommentSettingsProps> = ({
     },
   });
 
+  const isLoadingUpdate = updateCommentFetchStatus === FetchStatus.PENDING;
+  const isLoadingDelete = deleteCommentFetchStatus === FetchStatus.PENDING;
+
   const handleUpdateComment = ({body}: ModalCommentSettingsValues) => {
     const id = comment?.id;
 
@@ -55,9 +58,6 @@ export const ModalCommentSettings: FC<ModalCommentSettingsProps> = ({
     dispatch(deleteComment(id));
     onClose();
   };
-
-  const isLoadingUpdate = updateCommentFetchStatus === FetchStatus.PENDING;
-  const isLoadingDelete = deleteCommentFetchStatus === FetchStatus.PENDING;
 
   return (
     <ModalUi visible={visible} onClose={onClose}>

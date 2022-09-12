@@ -21,7 +21,7 @@ export const CommentItem: FC<CommentItemProps> = ({comment}) => {
   const createdDate = () => {
     if (differenceInDays === 0) {
       return 'Today';
-    } else if (differenceInDays < 4 && differenceInDays > 0) {
+    } else if (differenceInDays > 0 && differenceInDays < 4) {
       return `${differenceInDays} days ago`;
     } else {
       return dayjs(comment?.created).format('DD-MM-YYYY');

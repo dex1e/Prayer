@@ -25,7 +25,7 @@ import {FetchStatus, ScreenName} from '~types';
 
 type MyPrayersNavigationProps = StackNavigationProp<
   MainStackParamList,
-  ScreenName.MYPRAYERS
+  ScreenName.MY_PRAYERS
 >;
 
 interface MyPrayersScreenProps {
@@ -59,17 +59,17 @@ export const MyPrayersScreen: FC<MyPrayersScreenProps> = ({columnId}) => {
   const isLoadingAddPrayer = addPrayerFetchStatus === FetchStatus.PENDING;
   const isLoadingGetPrayers = getPrayersFetchStatus === FetchStatus.PENDING;
 
-  const filtredPrayers = useMemo(() => {
+  const filteredPrayers = useMemo(() => {
     return prayers.filter(prayer => prayer?.columnId === columnId);
   }, [prayers, columnId]);
 
   const unCheckedPrayers = useMemo(() => {
-    return filtredPrayers.filter(prayer => !prayer.checked);
-  }, [filtredPrayers]);
+    return filteredPrayers.filter(prayer => !prayer.checked);
+  }, [filteredPrayers]);
 
   const checkedPrayers = useMemo(() => {
-    return filtredPrayers.filter(prayer => prayer.checked);
-  }, [filtredPrayers]);
+    return filteredPrayers.filter(prayer => prayer.checked);
+  }, [filteredPrayers]);
 
   const addNewPrayer = ({title, description}: MyPrayersValues) => {
     dispatch(addPrayer({title, description, columnId}));
@@ -127,7 +127,7 @@ export const MyPrayersScreen: FC<MyPrayersScreenProps> = ({columnId}) => {
           name="title"
         />
       </View>
-      {filtredPrayers.length ? (
+      {filteredPrayers.length ? (
         <>
           <View style={styles.prayerItem}>
             {unCheckedPrayers?.map(prayer => {

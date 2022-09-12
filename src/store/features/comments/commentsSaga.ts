@@ -60,7 +60,6 @@ export function* handleUpdateComment(action: PayloadAction<IComment>) {
     yield put(updateCommentSucces(data));
   } catch (error) {
     yield put(updateCommentFailed(error));
-    console.log(error);
   }
 }
 
@@ -77,6 +76,5 @@ export function* handleDeleteComment(action: PayloadAction<number>) {
     }
   } catch (error: any) {
     yield put(deleteCommentFailed(error.response.data.message));
-    console.log(error.response.data.message);
   }
 }

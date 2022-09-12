@@ -1,7 +1,7 @@
 export enum ScreenName {
   COLUMN = 'Column',
-  MYDESK = 'MyDesk',
-  MYPRAYERS = 'MyPrayers',
+  MY_DESK = 'MyDesk',
+  MY_PRAYERS = 'MyPrayers',
   SUBSCRIBED = 'Subscribed',
   PRAYER = 'Prayer',
 }

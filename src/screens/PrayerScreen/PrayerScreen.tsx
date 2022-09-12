@@ -39,10 +39,18 @@ export const PrayerScreen = ({
   const getCommentsFetchStatus = useAppSelector(
     state => state.commentsData.getCommentsFetchStatus,
   );
-
   const dispatch = useAppDispatch();
 
   const [isSettingsModalVisible, setIsSettingsModalVisible] = useState(false);
+
+  const currentPrayerId = route?.params?.prayerId;
+  const currentPrayer = prayers.find(prayer => currentPrayerId === prayer?.id);
+
+  const filteredComments = useMemo(() => {
+    return comments.filter(comment => comment?.prayerId === currentPrayer?.id);
+  }, [comments, currentPrayer?.id]);
+
+  const isLoadingGetComments = getCommentsFetchStatus === FetchStatus.PENDING;
 
   const handleSettingsModalVisible = () => {
     setIsSettingsModalVisible(true);
@@ -50,15 +58,6 @@ export const PrayerScreen = ({
   const handleCloseSettingsModalVisible = () => {
     setIsSettingsModalVisible(false);
   };
-
-  const currentPrayerId = route?.params?.prayerId;
-  const currentPrayer = prayers.find(prayer => currentPrayerId === prayer?.id);
-
-  const filtredComments = useMemo(() => {
-    return comments.filter(comment => comment?.prayerId === currentPrayer?.id);
-  }, [comments, currentPrayer?.id]);
-
-  const isLoadingGetComments = getCommentsFetchStatus === FetchStatus.PENDING;
 
   useEffect(() => {
     dispatch(getComments());
@@ -90,7 +89,7 @@ export const PrayerScreen = ({
           prayer={currentPrayer}
           onClose={handleCloseSettingsModalVisible}
           onNavigateToMyPrayers={() =>
-            navigation.navigate(ScreenName.MYPRAYERS)
+            navigation.navigate(ScreenName.MY_PRAYERS)
           }
         />
 
@@ -106,9 +105,9 @@ export const PrayerScreen = ({
         <PrayerMembers />
         <>
           <Text style={styles.commentsTitle}>Comments</Text>
-          {filtredComments.length ? (
+          {filteredComments.length ? (
             <View style={styles.commentsContainer}>
-              {filtredComments.map(comment => {
+              {filteredComments.map(comment => {
                 return <CommentItem key={comment.id} comment={comment} />;
               })}
             </View>

@@ -45,6 +45,9 @@ export const ModalColumnSettings: FC<ModalColumnSettingsProps> = ({
     },
   });
 
+  const isLoadingUpdate = updateColumnFetchStatus === FetchStatus.PENDING;
+  const isLoadingDelete = deleteColumnFetchStatus === FetchStatus.PENDING;
+
   const onSubmit = ({title, description}: ModalColumnSettingsValues) => {
     const id = column?.id;
 
@@ -59,9 +62,6 @@ export const ModalColumnSettings: FC<ModalColumnSettingsProps> = ({
     onClose();
     onNavigateToMyDesk();
   };
-
-  const isLoadingUpdate = updateColumnFetchStatus === FetchStatus.PENDING;
-  const isLoadingDelete = deleteColumnFetchStatus === FetchStatus.PENDING;
 
   return (
     <ModalUi visible={visible} onClose={onClose}>

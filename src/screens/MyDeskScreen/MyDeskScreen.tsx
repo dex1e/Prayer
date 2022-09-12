@@ -13,7 +13,7 @@ import {FetchStatus, ScreenName} from '~types';
 
 type MyDeskScreenProps = NativeStackScreenProps<
   MainStackParamList,
-  ScreenName.MYDESK
+  ScreenName.MY_DESK
 >;
 
 export const MyDeskScreen = ({navigation}: MyDeskScreenProps) => {
@@ -52,7 +52,7 @@ export const MyDeskScreen = ({navigation}: MyDeskScreenProps) => {
   return (
     <>
       <Header
-        title={ScreenName.MYDESK}
+        title={ScreenName.MY_DESK}
         isDividerActive
         buttonLeft={<PlusIcon />}
         buttonRight={<SignOut width={24} height={24} fill={COLORS.lightBlue} />}

@@ -17,7 +17,7 @@ export const MainNavigator = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name={ScreenName.MYDESK}
+        name={ScreenName.MY_DESK}
         component={MyDeskScreen}
         options={{
           headerShown: false,

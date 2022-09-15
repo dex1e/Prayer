@@ -1,3 +1,5 @@
+import {useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
 import React, {FC, useEffect, useMemo, useState} from 'react';
 import {Controller, useForm} from 'react-hook-form';
 import {
@@ -10,6 +12,8 @@ import {
 import {COLORS} from '~assets';
 import {MyPrayerItem} from '~components';
 import {ButtonUI, InputWithIcon} from '~components/ui';
+import {MainStackParamList} from '~navigation/MainNavigator';
+
 import {
   addPrayer,
   deletePrayer,
@@ -17,7 +21,12 @@ import {
   updatePrayerChecked,
 } from '~store/features/prayers';
 import {useAppDispatch, useAppSelector} from '~store/hooks';
-import {FetchStatus} from '~types';
+import {FetchStatus, ScreenName} from '~types';
+
+type MyPrayersNavigationProps = StackNavigationProp<
+  MainStackParamList,
+  ScreenName.MY_PRAYERS
+>;
 
 interface MyPrayersScreenProps {
   columnId?: number;
@@ -38,6 +47,7 @@ export const MyPrayersScreen: FC<MyPrayersScreenProps> = ({columnId}) => {
     state => state.prayersData.addPrayerFetchStatus,
   );
   const dispatch = useAppDispatch();
+  const navigation = useNavigation<MyPrayersNavigationProps>();
 
   const {control, handleSubmit, reset} = useForm({
     defaultValues: {
@@ -49,22 +59,20 @@ export const MyPrayersScreen: FC<MyPrayersScreenProps> = ({columnId}) => {
   const isLoadingAddPrayer = addPrayerFetchStatus === FetchStatus.PENDING;
   const isLoadingGetPrayers = getPrayersFetchStatus === FetchStatus.PENDING;
 
-  const filtredPrayers = useMemo(() => {
+  const filteredPrayers = useMemo(() => {
     return prayers.filter(prayer => prayer?.columnId === columnId);
   }, [prayers, columnId]);
 
   const unCheckedPrayers = useMemo(() => {
-    return filtredPrayers.filter(prayer => !prayer.checked);
-  }, [filtredPrayers]);
+    return filteredPrayers.filter(prayer => !prayer.checked);
+  }, [filteredPrayers]);
 
   const checkedPrayers = useMemo(() => {
-    return filtredPrayers.filter(prayer => prayer.checked);
-  }, [filtredPrayers]);
+    return filteredPrayers.filter(prayer => prayer.checked);
+  }, [filteredPrayers]);
 
   const addNewPrayer = ({title, description}: MyPrayersValues) => {
-    const id = columnId;
-
-    dispatch(addPrayer({title, description, id}));
+    dispatch(addPrayer({title, description, columnId}));
   };
 
   const onSubmit = () => {
@@ -81,11 +89,21 @@ export const MyPrayersScreen: FC<MyPrayersScreenProps> = ({columnId}) => {
   };
 
   useEffect(() => {
-    dispatch(getPrayers());
-  }, [dispatch]);
+    const unsubscribe = navigation.addListener('focus', () => {
+      dispatch(getPrayers());
+    });
+
+    return unsubscribe;
+  }, [navigation, dispatch]);
 
   if (isLoadingGetPrayers) {
-    return <ActivityIndicator size="large" color={COLORS.primary} />;
+    return (
+      <ActivityIndicator
+        style={styles.loading}
+        size="large"
+        color={COLORS.primary}
+      />
+    );
   }
 
   return (
@@ -109,7 +127,7 @@ export const MyPrayersScreen: FC<MyPrayersScreenProps> = ({columnId}) => {
           name="title"
         />
       </View>
-      {filtredPrayers.length ? (
+      {filteredPrayers.length ? (
         <>
           <View style={styles.prayerItem}>
             {unCheckedPrayers?.map(prayer => {
@@ -119,6 +137,12 @@ export const MyPrayersScreen: FC<MyPrayersScreenProps> = ({columnId}) => {
                   prayer={prayer}
                   onDeletePrayer={handleDeletePrayer}
                   onCheckPrayer={handleCheckPrayer}
+                  onNavigateToPrayer={() =>
+                    navigation.navigate({
+                      name: ScreenName.PRAYER,
+                      params: {prayerId: prayer?.id},
+                    })
+                  }
                 />
               );
             })}
@@ -148,6 +172,12 @@ export const MyPrayersScreen: FC<MyPrayersScreenProps> = ({columnId}) => {
                     prayer={checkedPrayer}
                     onDeletePrayer={handleDeletePrayer}
                     onCheckPrayer={handleCheckPrayer}
+                    onNavigateToPrayer={() =>
+                      navigation.navigate({
+                        name: ScreenName.PRAYER,
+                        params: {prayerId: checkedPrayer?.id},
+                      })
+                    }
                   />
                 );
               })}
@@ -185,5 +215,11 @@ const styles = StyleSheet.create({
 
   emptyPrayers: {
     alignSelf: 'center',
+  },
+
+  loading: {
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
   },
 });

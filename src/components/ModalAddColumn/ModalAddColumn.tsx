@@ -48,7 +48,7 @@ export const ModalAddColumn: FC<ModalAddColumnProps> = ({
   };
 
   return (
-    <ModalUi visible={visible} onRequestClose={onRequestClose}>
+    <ModalUi visible={visible} onClose={onRequestClose}>
       <View>
         <Header
           title="Add column"

@@ -63,7 +63,6 @@ export function* handleUpdateColumn(action: PayloadAction<IColumn>) {
     yield put(updateColumnSucces(data));
   } catch (error) {
     yield put(updateColumnFailed());
-    console.log(error);
   }
 }
 
@@ -80,6 +79,5 @@ export function* handleDeleteColumn(action: PayloadAction<number>) {
     }
   } catch (error: any) {
     yield put(deleteColumnFailed(error.response.data.message));
-    console.log(error.response.data.message);
   }
 }

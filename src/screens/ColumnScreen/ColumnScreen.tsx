@@ -18,7 +18,7 @@ type ColumnScreenProps = NativeStackScreenProps<
   ScreenName.COLUMN
 >;
 
-const Tab = createMaterialTopTabNavigator();
+const Tab = createMaterialTopTabNavigator<MainStackParamList>();
 
 export const ColumnScreen = ({navigation, route}: ColumnScreenProps) => {
   const columns = useAppSelector(state => state.columnsData.columns);
@@ -52,7 +52,7 @@ export const ColumnScreen = ({navigation, route}: ColumnScreenProps) => {
         visible={isSettingsModalVisible}
         column={currentColumn}
         onClose={handleCloseSettingsModalVisible}
-        onNavigateToMyDesk={() => navigation.navigate(ScreenName.MYDESK)}
+        onNavigateToMyDesk={() => navigation.navigate(ScreenName.MY_DESK)}
       />
 
       <Tab.Navigator
@@ -63,7 +63,7 @@ export const ColumnScreen = ({navigation, route}: ColumnScreenProps) => {
           swipeEnabled: false,
         }}>
         <Tab.Screen
-          name={ScreenName.MYPRAYERS}
+          name={ScreenName.MY_PRAYERS}
           children={() => <MyPrayersScreen columnId={currentColumn?.id} />}
         />
 

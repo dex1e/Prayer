@@ -8,6 +8,7 @@ import {
   deletePrayersApi,
   getPrayersApi,
   updatePrayerCheckedApi,
+  updatePrayerTitleApi,
 } from './prayersApi';
 
 import {
@@ -22,6 +23,9 @@ import {
   updatePrayerChecked,
   updatePrayerCheckedSucces,
   updatePrayerCheckedFailed,
+  updatePrayerTitleSucces,
+  updatePrayerTitleFailed,
+  updatePrayerTitle,
 } from './prayersSlice';
 
 export function* prayersWatcherSaga() {
@@ -29,6 +33,7 @@ export function* prayersWatcherSaga() {
   yield takeLatest(addPrayer.type, handleAddPrayer);
   yield takeLatest(deletePrayer.type, handleDeletePrayer);
   yield takeLatest(updatePrayerChecked.type, handleUpdateCheckedPrayer);
+  yield takeLatest(updatePrayerTitle.type, handleUpdateTitlePrayer);
 }
 
 export function* handleGetPrayers() {
@@ -43,9 +48,13 @@ export function* handleGetPrayers() {
 }
 
 export function* handleAddPrayer(action: PayloadAction<IPrayer>) {
-  const {title, description, id} = action.payload;
+  const {title, description, columnId} = action.payload;
+
   try {
-    const {data} = yield call(() => createNewPrayer(title, description, id));
+    const {data} = yield call(() =>
+      createNewPrayer(title, description, columnId),
+    );
+
     yield put(addPrayerSucces(data));
   } catch (error) {
     yield put(addColumnFailed(error));
@@ -65,7 +74,6 @@ export function* handleDeletePrayer(action: PayloadAction<number>) {
     }
   } catch (error: any) {
     yield put(deletePrayerFailed(error.response.data.message));
-    console.log(error.response.data.message);
   }
 }
 
@@ -77,7 +85,18 @@ export function* handleUpdateCheckedPrayer(action: PayloadAction<IPrayer>) {
 
     yield put(updatePrayerCheckedSucces(data));
   } catch (error) {
-    yield put(updatePrayerCheckedFailed());
-    console.log(error);
+    yield put(updatePrayerCheckedFailed(error));
+  }
+}
+
+export function* handleUpdateTitlePrayer(action: PayloadAction<IPrayer>) {
+  const {id, title} = action.payload;
+
+  try {
+    const {data} = yield call(() => updatePrayerTitleApi(id, title));
+
+    yield put(updatePrayerTitleSucces(data));
+  } catch (error) {
+    yield put(updatePrayerTitleFailed(error));
   }
 }

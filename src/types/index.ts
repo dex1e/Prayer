@@ -1,8 +1,9 @@
 export enum ScreenName {
   COLUMN = 'Column',
-  MYDESK = 'MyDesk',
-  MYPRAYERS = 'MyPrayers',
+  MY_DESK = 'MyDesk',
+  MY_PRAYERS = 'MyPrayers',
   SUBSCRIBED = 'Subscribed',
+  PRAYER = 'Prayer',
 }
 
 export enum FetchStatus {
@@ -37,4 +38,12 @@ export interface IPrayer {
   checked: boolean;
   columnId: number;
   commentsIds: string[];
+}
+
+export interface IComment {
+  id: number;
+  body: string;
+  created: string;
+  prayerId: number;
+  userId: number;
 }

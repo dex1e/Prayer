@@ -3,12 +3,14 @@ import createSagaMiddleware from 'redux-saga';
 import authReducer from './features/auth';
 import columnsReducer from './features/columns';
 import prayersReducer from './features/prayers';
+import commentsReducer from './features/comments';
 import {rootWatcher} from './features';
 
 const reducers = combineReducers({
   auth: authReducer,
   columnsData: columnsReducer,
   prayersData: prayersReducer,
+  commentsData: commentsReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();

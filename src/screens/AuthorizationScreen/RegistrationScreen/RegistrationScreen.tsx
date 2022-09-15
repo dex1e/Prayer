@@ -20,9 +20,6 @@ export const RegistrationScreen = () => {
   const error = useAppSelector(state => state.auth.error);
   const dispatch = useAppDispatch();
 
-  const isLoading = registrationFetchStatus === FetchStatus.PENDING;
-  const isError = registrationFetchStatus === FetchStatus.REJECTED;
-
   const {
     control,
     handleSubmit,
@@ -34,6 +31,9 @@ export const RegistrationScreen = () => {
       password: '',
     },
   });
+
+  const isLoading = registrationFetchStatus === FetchStatus.PENDING;
+  const isError = registrationFetchStatus === FetchStatus.REJECTED;
 
   const onSubmit = (data: RegistrationFormValues) => {
     dispatch(registerUser(data));

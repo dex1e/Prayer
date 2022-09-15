@@ -1,5 +1,11 @@
 import React, {FC} from 'react';
-import {Dimensions, StyleSheet, Text, View} from 'react-native';
+import {
+  Dimensions,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {
   GestureHandlerRootView,
   PanGestureHandler,
@@ -25,12 +31,14 @@ interface MyPrayerItemProps {
   prayer: IPrayer;
   onDeletePrayer: (id: number) => void;
   onCheckPrayer: (id: number, checked: boolean) => void;
+  onNavigateToPrayer: () => void;
 }
 
 export const MyPrayerItem: FC<MyPrayerItemProps> = ({
   prayer,
   onDeletePrayer,
   onCheckPrayer,
+  onNavigateToPrayer,
 }) => {
   const translateX = useSharedValue(0);
   const prayerHeight = useSharedValue(PRAYER_ITEM_HEIGHT);
@@ -89,29 +97,33 @@ export const MyPrayerItem: FC<MyPrayerItemProps> = ({
 
         <PanGestureHandler onGestureEvent={panGesture}>
           <Animated.View style={[styles.prayer, animatedPrayer]}>
-            <View style={styles.line}>
-              <Line height={24} />
-            </View>
+            <TouchableOpacity
+              style={styles.prayer}
+              onPress={onNavigateToPrayer}>
+              <View style={styles.line}>
+                <Line height={24} />
+              </View>
 
-            <CheckBox
-              checked={prayer?.checked}
-              onPress={() => onCheckPrayer(prayer.id, !prayer.checked)}
-            />
+              <CheckBox
+                checked={prayer?.checked}
+                onPress={() => onCheckPrayer(prayer.id, !prayer.checked)}
+              />
 
-            <Text
-              style={prayer.checked ? styles.checkedTitle : styles.title}
-              ellipsizeMode="tail"
-              numberOfLines={1}>
-              {prayer?.title}
-            </Text>
+              <Text
+                style={prayer.checked ? styles.checkedTitle : styles.title}
+                ellipsizeMode="tail"
+                numberOfLines={1}>
+                {prayer?.title}
+              </Text>
 
-            <View style={styles.userIcon}>
-              <UserIcon width={24} height={24} fill={COLORS.lightBlue} />
-            </View>
+              <View style={styles.userIcon}>
+                <UserIcon width={24} height={24} fill={COLORS.lightBlue} />
+              </View>
 
-            <Text style={styles.countComments}>
-              {prayer?.commentsIds?.length || 0}
-            </Text>
+              <Text style={styles.countComments}>
+                {prayer?.commentsIds?.length}
+              </Text>
+            </TouchableOpacity>
           </Animated.View>
         </PanGestureHandler>
       </Animated.View>

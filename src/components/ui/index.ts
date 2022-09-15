@@ -1,3 +1,4 @@
+export {InputWithoutBorder} from './InputWithoutBorder';
 export {CheckBox} from './CheckBox';
 export {InputWithIcon} from './InputWithIcon';
 export {ModalUi} from './ModalUi';

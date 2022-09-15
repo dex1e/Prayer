@@ -13,7 +13,7 @@ import {FetchStatus, ScreenName} from '~types';
 
 type MyDeskScreenProps = NativeStackScreenProps<
   MainStackParamList,
-  ScreenName.MYDESK
+  ScreenName.MY_DESK
 >;
 
 export const MyDeskScreen = ({navigation}: MyDeskScreenProps) => {
@@ -40,19 +40,26 @@ export const MyDeskScreen = ({navigation}: MyDeskScreenProps) => {
   }, [dispatch]);
 
   if (isLoading) {
-    return <ActivityIndicator size="large" color={COLORS.primary} />;
+    return (
+      <ActivityIndicator
+        style={styles.loading}
+        size="large"
+        color={COLORS.primary}
+      />
+    );
   }
 
   return (
     <>
       <Header
-        title={ScreenName.MYDESK}
+        title={ScreenName.MY_DESK}
         isDividerActive
         buttonLeft={<PlusIcon />}
         buttonRight={<SignOut width={24} height={24} fill={COLORS.lightBlue} />}
         onPressButtonRight={handleSignOut}
         onPressButtonLeft={handleAddColumnModalVisible}
       />
+
       <ScrollView style={styles.container}>
         <ModalAddColumn
           visible={isAddColumnModalVisible}
@@ -116,5 +123,11 @@ const styles = StyleSheet.create({
 
   containerColumns: {
     padding: 15,
+  },
+
+  loading: {
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
   },
 });

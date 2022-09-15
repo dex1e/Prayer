@@ -31,7 +31,6 @@ export const LoginScreen = () => {
   });
 
   const isLoading = loginFetchStatus === FetchStatus.PENDING;
-
   const isError = loginFetchStatus === FetchStatus.REJECTED;
 
   const onSubmit = (data: LoginFormValues) => {

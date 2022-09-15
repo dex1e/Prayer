@@ -8,17 +8,17 @@ export const authSlice = createSlice({
   initialState,
 
   reducers: {
-    getToken: state => {
-      state.getTokenFetchStatus = FetchStatus.PENDING;
+    getUser: state => {
+      state.getUserFetchStatus = FetchStatus.PENDING;
     },
 
-    getTokenSucces: (state, action: PayloadAction<string>) => {
-      state.user.token = action.payload;
-      state.getTokenFetchStatus = FetchStatus.FULFILLED;
+    getUserSucces: (state, action: PayloadAction<IUser>) => {
+      state.user = action.payload;
+      state.getUserFetchStatus = FetchStatus.FULFILLED;
     },
 
-    getTokenFailed: state => {
-      state.getTokenFetchStatus = FetchStatus.REJECTED;
+    getUserFailed: state => {
+      state.getUserFetchStatus = FetchStatus.REJECTED;
     },
 
     registerUser: (state, _action) => {
@@ -30,7 +30,9 @@ export const authSlice = createSlice({
       state.registrationFetchStatus = FetchStatus.FULFILLED;
     },
 
-    registerUserFailed: (state, _action) => {
+    registerUserFailed: (state, action: PayloadAction<string>) => {
+      state.error = action.payload;
+
       state.registrationFetchStatus = FetchStatus.REJECTED;
     },
 
@@ -43,7 +45,8 @@ export const authSlice = createSlice({
       state.loginFetchStatus = FetchStatus.FULFILLED;
     },
 
-    loginUserFailed: (state, _action) => {
+    loginUserFailed: (state, action: PayloadAction<string>) => {
+      state.error = action.payload;
       state.loginFetchStatus = FetchStatus.REJECTED;
     },
 
@@ -69,12 +72,12 @@ export const {
   loginUser,
   loginUserSucces,
   loginUserFailed,
-  getToken,
-  getTokenSucces,
-  getTokenFailed,
   signOutUser,
   signOutUserSucces,
   signOutUserFailed,
+  getUser,
+  getUserSucces,
+  getUserFailed,
 } = authSlice.actions;
 
 export default authSlice.reducer;

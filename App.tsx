@@ -1,19 +1,14 @@
 import React from 'react';
-import {SafeAreaView, Text, useColorScheme} from 'react-native';
+import {Provider} from 'react-redux';
 
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {Routes} from '~navigation';
+import {store} from '~store';
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <Text>Hello world!</Text>
-    </SafeAreaView>
+    <Provider store={store}>
+      <Routes />
+    </Provider>
   );
 };
 
